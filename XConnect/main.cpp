@@ -67,12 +67,8 @@ BOOL APIENTRY DllMain( HINSTANCE hModule,
 }
 #endif
 
-
-
-
 PLUGIN_API int XPluginStart(char* name, char* signature, char* description)
 {
-
 	strcpy(name, "XConnect");
 	strcpy(signature, "Oktalist.XConnect");
 	strcpy(description, "Provides the same functionality as FSUIPC");
@@ -85,6 +81,7 @@ PLUGIN_API int XPluginEnable(void)
 {
 	return 1;
 }
+
 PLUGIN_API void XPluginDisable(void)
 {
 	return;

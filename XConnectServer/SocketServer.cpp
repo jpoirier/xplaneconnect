@@ -14,7 +14,7 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 //
-//#include <winsock.h> 
+//#include <winsock.h>
 
 
 #include "SocketServer.h"
@@ -78,8 +78,7 @@ DWORD WINAPI SocketServer(void)
     port = PROTOPORT;
 	sad.sin_port = htons((u_short)port);
 
-
-    if ( ((int)(ptrp = getprotobyname("udp"))) == 0) {
+    if (((int)(ptrp = getprotobyname("udp"))) == 0) {
         sprintf(buf, "cannot map \"tcp\" to protocol number");
         fdsError(buf);
 		return FALSE;
@@ -98,34 +97,25 @@ DWORD WINAPI SocketServer(void)
 		return FALSE;
     }
 
-
 	char data[BUFSIZE];
 	sockaddr from;
 	//int fromlen = sizeof(from);
 
 	fdsError("Starting loop\n");
 
-	while(true)
-	{
+	while(true) {
 		int fromlen = sizeof(from);
 		int len = recvfrom(sd, data, sizeof(data), 0, &from, &fromlen);
 
-		if(len>0)
-		{
-
+		if(len>0) {
 			//fdsError("Data received\n");
-
 			sprintf(buf, "Data received: %d\n", len);
 			fdsError(buf);
 			ProcessSocketData(data, len);
 
 			fromlen = sizeof(from);
 			sendto(sd, data, len, 0, &from, fromlen);
-
-
-		}
-		else
-		{
+		} else {
 			sprintf(buf, "Error code: %d\n", WSAGetLastError());
 			//sprintf(buf, strerror(WSAGetLastError()));
 			//sprintf(buf, "Len equals: %d\n", len);
@@ -133,9 +123,7 @@ DWORD WINAPI SocketServer(void)
 		}
 	}
 
-  
 	WSACleanup();
-
 	return TRUE;
 }
 
@@ -144,12 +132,8 @@ DWORD WINAPI SocketServer(void)
 
 void ProcessSocketData(char* data, int size)
 {
-
-
 	//FILE* str = fopen("FDSWideConnection.out", "a+");
-
 	//fprintf(str, "Process socket data\n");
-
 	//fflush(str);
 
 	DWORD error;
@@ -167,63 +151,48 @@ void ProcessSocketData(char* data, int size)
 		}
 	}
 
-	
 	//fprintf(str, "Server is initialized\n");
 	//fflush(str);
 
 	char buf[5000];
-
-	
-
 	pView = (BYTE*)data;
 	if (pView) {
 		pNext = pView;
 
 		pdw = (DWORD*)pView;
-		while (*pdw) {	
+		while (*pdw) {
 			switch (*pdw) {
-				case XC_ACTION_READ:
-				case XC_ACTION_READTRUE:
-					{
-
-
-						pHdrR = (XC_ACTION_READ_HDR*)pdw;
-						pNext += sizeof(XC_ACTION_READ_HDR);
-
-						sprintf(buf, "Get variable %x - %d\n", pHdrR->offset, pHdrR->size);
-						fdsError(buf);
-						//fflush(str);
-
-						GetVariable(pNext, pHdrR->offset, pHdrR->size);
-						pNext += pHdrR->size;
-						pdw = (DWORD*)pNext;
-					}
-					break;
-				case XC_ACTION_WRITE:
-				case XC_ACTION_WRITETRUE:
-					{
-
-						pHdrW = (XC_ACTION_WRITE_HDR*)pdw;
-						pNext += sizeof(XC_ACTION_WRITE_HDR);
-
-						//fprintf(str, "Set variable %x\n", pHdrW->offset);
-						//fflush(str);
-
-						WriteVariable((BYTE*)pNext, pHdrW->offset, pHdrW->size);
-						pNext += pHdrW->size;
-						pdw = (DWORD*)pNext;
-					}
-					break;
-				default:
-					{
-						*pdw = 0;
-					}
-					break;
+			case XC_ACTION_READ:
+			case XC_ACTION_READTRUE:
+				{
+					pHdrR = (XC_ACTION_READ_HDR*)pdw;
+					pNext += sizeof(XC_ACTION_READ_HDR);
+					sprintf(buf, "Get variable %x - %d\n", pHdrR->offset, pHdrR->size);
+					fdsError(buf);
+					//fflush(str);
+					GetVariable(pNext, pHdrR->offset, pHdrR->size);
+					pNext += pHdrR->size;
+					pdw = (DWORD*)pNext;
+				}
+				break;
+			case XC_ACTION_WRITE:
+			case XC_ACTION_WRITETRUE:
+				{
+					pHdrW = (XC_ACTION_WRITE_HDR*)pdw;
+					pNext += sizeof(XC_ACTION_WRITE_HDR);
+					//fprintf(str, "Set variable %x\n", pHdrW->offset);
+					//fflush(str);
+					WriteVariable((BYTE*)pNext, pHdrW->offset, pHdrW->size);
+					pNext += pHdrW->size;
+					pdw = (DWORD*)pNext;
+				}
+				break;
+			default:
+				*pdw = 0;
+				break;
 			}
 
 			fdsError("Process Data complete\n");
-
-
 		}
 
 		/*pNext += 4;
@@ -238,6 +207,5 @@ void ProcessSocketData(char* data, int size)
 		//if (error != XC_RETURN_SUCCESS)
 			//MessageBox(NULL, "Error communication with FDSConnect", "FDSWideConnectionServer Error", MB_OK);
 	}
-
 	//fclose(str);
 }

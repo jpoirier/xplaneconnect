@@ -12,7 +12,6 @@ details.
 You should have received a copy of the GNU Lesser General Public License along
 with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-
 #include "XPLMPlugin.h"
 #include "XPLMDisplay.h"
 #include "XPLMGraphics.h"
@@ -31,19 +30,20 @@ const char* version = "0.0.1";
 
 #if IBM
 #include <windows.h>
-
 HINSTANCE hDLLInstance = 0;
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
+
      PLUGIN_API int XPluginStart(char* name, char* signature, char* description);
      PLUGIN_API int XPluginEnable(void);
      PLUGIN_API void XPluginDisable(void);
      PLUGIN_API void XPluginStop(void);
      PLUGIN_API void XPluginReceiveMessage(XPLMPluginID inFromWho, int inMessage, void* inParam);
- #ifdef __cplusplus
+
+#ifdef __cplusplus
 }
 #endif
 
@@ -52,7 +52,6 @@ BOOL APIENTRY DllMain( HINSTANCE hModule,
                        LPVOID lpReserved
 					 )
 {
-
 	hDLLInstance = hModule;
 
     switch (ul_reason_for_call)
@@ -72,7 +71,6 @@ BOOL APIENTRY DllMain( HINSTANCE hModule,
 
 PLUGIN_API int XPluginStart(char* name, char* signature, char* description)
 {
-
 	strcpy(name, "XConnectServer");
 	strcpy(signature, "Flight Deck Software.XConnectServer");
 	strcpy(description, "Provides the same functionality as FSUIPC");

@@ -21,16 +21,16 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
 #define XC_CALL_CONNECTION			"FSASMLIB:IPC"
-#define XC_ACTION_READ				1
-#define XC_ACTION_WRITE			2
-#define XC_ACTION_READTRUE			3
-#define XC_ACTION_WRITETRUE		4
-#define XC_ACTION_READTOKEN		5
-#define XC_ACTION_WRITETOKEN		6
-#define XC_ACTION_SEARCH			7
+#define XC_ACTION_READ				(1)
+#define XC_ACTION_WRITE				(2)
+#define XC_ACTION_READTRUE			(3)
+#define XC_ACTION_WRITETRUE			(4)
+#define XC_ACTION_READTOKEN			(5)
+#define XC_ACTION_WRITETOKEN		(6)
+#define XC_ACTION_SEARCH			(7)
 
-#define XC_RETURN_FAILURE			0
-#define XC_RETURN_SUCCESS			1
+#define XC_RETURN_FAILURE			(0)
+#define XC_RETURN_SUCCESS			(1)
 
 
 void module_init(HINSTANCE dllInstance);

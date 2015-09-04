@@ -12,7 +12,6 @@ details.
 You should have received a copy of the GNU Lesser General Public License along
 with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-
 #include "Conversion.h"
 
 float KgToLbs(float kg)
@@ -22,16 +21,13 @@ float KgToLbs(float kg)
 
 float InchToHPA(float inch)
 {
-
-		float diff = (inch - 29.92f) / 0.02952998f;
-		return 1013 + diff;
-
+	float diff = (inch - 29.92f) / 0.02952998f;
+	return 1013 + diff;
 }
 
 float HPAToInch(float hpa)
 {
 	float diff = (hpa - 1013) * 0.02952998f;
-
     return 29.92f + diff;
 }
 
@@ -54,15 +50,15 @@ float LbsToKg(float lbs)
 int GetBCD(int orig)
 {
 	int res = 0;
-
     int dig1 = (orig / 1000);
-    if(dig1>0)
+
+    if (dig1 > 0)
         orig = orig % (dig1 * 1000);
     int dig2 = (orig / 100);
-    if(dig2>0)
+    if (dig2 > 0)
         orig = orig % (dig2 * 100);
     int dig3 = (orig / 10);
-    if(dig3>0)
+    if (dig3 > 0)
         orig = orig % (dig3 * 10);
     int dig4 = orig;
 
@@ -77,9 +73,11 @@ int GetBCD(int orig)
 
 float WrapHeading(float hdg)
 {
-	while(hdg<0)
-		hdg+=360;
-	while(hdg>=360)
-		hdg-=360;
+	while (hdg<0)
+		hdg += 360;
+
+	while (hdg >= 360)
+		hdg -= 360;
+
 	return hdg;
 }

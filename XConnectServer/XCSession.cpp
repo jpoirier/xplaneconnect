@@ -12,9 +12,6 @@ details.
 You should have received a copy of the GNU Lesser General Public License along
 with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-
-
-
 #include <stdio.h>
 #include "SocketServer.h"
 #include "XCSession.h"
@@ -28,7 +25,6 @@ void module_init(HINSTANCE dllInstance)
 	FILE* str = fopen("XCOnnectServer.out", "w");
 	fprintf(str, "XConnectServer init OK!\n");
 
-
 	XConnectMemBlock = new BYTE[0x10000];
 
 	for (int i = 0; i < 0x10000; i++) {
@@ -36,14 +32,14 @@ void module_init(HINSTANCE dllInstance)
 	}
 
 	//InitializeCriticalSection(&GDILock);
-    hThread = CreateThread( 
-            NULL,				// no security attribute 
-            0,					// default stack size 
+    hThread = CreateThread(
+            NULL,				// no security attribute
+            0,					// default stack size
             (LPTHREAD_START_ROUTINE) SocketServer,
-            (LPVOID) 0,			// thread parameter 
-            0,					// not suspended 
+            (LPVOID) 0,			// thread parameter
+            0,					// not suspended
             &dwThreadId);		// returns thread ID
-	
+
 	if (hThread)
 		fprintf(str, "Create thread OK!\n");
 

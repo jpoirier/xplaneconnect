@@ -1,5 +1,5 @@
 //
-//#include <winsock.h> 
+//#include <winsock.h>
 
 
 #include "SocketServer.h"
@@ -16,9 +16,9 @@
 #include "FDSWrite.h"
 #include <errno.h>
 
-#define BUFSIZE			0x7F00
-#define PROTOPORT       5193            /* default protocol port number */
-#define QLEN            6               /* size of request queue        */
+#define BUFSIZE			(0x7F00)
+#define PROTOPORT       (5193)            /* default protocol port number */
+#define QLEN            (6)              /* size of request queue        */
 
 static BOOL ServerInitialized = FALSE;
 
@@ -71,7 +71,7 @@ DWORD WINAPI SocketServer(void)
 	sad.sin_port = htons((u_short)port);
 
 
-    if ( ((int)(ptrp = getprotobyname("udp"))) == 0) {
+    if (((int)(ptrp = getprotobyname("udp"))) == 0) {
         sprintf(buf, "cannot map \"tcp\" to protocol number");
         fdsError(buf);
 		return FALSE;
@@ -90,34 +90,24 @@ DWORD WINAPI SocketServer(void)
 		return FALSE;
     }
 
-
 	char data[BUFSIZE];
 	sockaddr from;
 	//int fromlen = sizeof(from);
 
 	fdsError("Starting loop\n");
 
-	while(true)
-	{
+	while (true) {
 		int fromlen = sizeof(from);
 		int len = c(sd, data, sizeof(data), 0, &from, &fromlen);
 
-		if(len>0)
-		{
-
+		if (len > 0) {
 			//fdsError("Data received\n");
-
 			sprintf(buf, "Data received: %d\n", len);
 			fdsError(buf);
 			ProcessSocketData(data, len);
-
 			fromlen = sizeof(from);
 			sendto(sd, data, len, 0, &from, fromlen);
-
-
-		}
-		else
-		{
+		} else {
 			sprintf(buf, "Error code: %d\n", WSAGetLastError());
 			//sprintf(buf, strerror(WSAGetLastError()));
 			//sprintf(buf, "Len equals: %d\n", len);
@@ -131,8 +121,8 @@ DWORD WINAPI SocketServer(void)
 		return FALSE;
     }*/
 
-
-	/*SocketHandler h;
+/*
+	SocketHandler h;
 	UdpProcessSocket s(h);
 	port_t port = PROTOPORT;
 	if(s.Bind(port, 10) == -1)
@@ -143,17 +133,18 @@ DWORD WINAPI SocketServer(void)
 	}
 
 	h.Add(&s);
-	
+
 	h.Select(1,0);
 	while(h.GetCount())
 	{
 		h.Select(1, 0);
-	}*/
+	}
+*/
 
-	//hThread = CreateThread( 
+	//hThread = CreateThread(
  //           NULL,
  //           0,
- //           (LPTHREAD_START_ROUTINE) SocketInstanceThread, 
+ //           (LPTHREAD_START_ROUTINE) SocketInstanceThread,
  //           (LPVOID) h,
  //           0,
  //           &dwThreadId);
@@ -172,11 +163,11 @@ DWORD WINAPI SocketServer(void)
 	//		return FALSE;
  //       }
 
- //      //Create a thread for this client. 
- //        hThread = CreateThread( 
+ //      //Create a thread for this client.
+ //        hThread = CreateThread(
  //           NULL,
  //           0,
- //           (LPTHREAD_START_ROUTINE) SocketInstanceThread, 
+ //           (LPTHREAD_START_ROUTINE) SocketInstanceThread,
  //           (LPVOID) sd2,
  //           0,
  //           &dwThreadId);
@@ -193,16 +184,14 @@ DWORD WINAPI SocketServer(void)
 	return TRUE;
 }
 
-/*void SocketInstanceThread(LPVOID lpvParam)
+/*
+void SocketInstanceThread(LPVOID lpvParam)
 {
-
-	
-
 	//fdsError("Start loop\n");
 
 	char* data = new char[BUFSIZE];
-	
-	
+
+
 	char* procPos = data;
 
 	memset(data, 0, BUFSIZE);
@@ -225,7 +214,7 @@ DWORD WINAPI SocketServer(void)
 		size = ret;
 
 
-	
+
 		pdw = (DWORD*)procPos;
 		if(*pdw == FDS_ACTION_READ )
 		{
@@ -254,11 +243,11 @@ DWORD WINAPI SocketServer(void)
 			}
 
 		}
-					
-			
-		
 
-		
+
+
+
+
 		//fdsError("Send Data to client\n");
 		send(sd2, data, size, 0);
 
@@ -272,19 +261,12 @@ DWORD WINAPI SocketServer(void)
 }
 */
 
-
 void ProcessSocketData(char* data, int size)
 {
-
-
 	//FILE* str = fopen("FDSWideConnection.out", "a+");
-
 	//fprintf(str, "Process socket data\n");
-
 	//fflush(str);
-
 	DWORD error;
-
 	BYTE* pView;
 	BYTE* pNext;
 	DWORD* pdw = NULL;
@@ -298,33 +280,25 @@ void ProcessSocketData(char* data, int size)
 		}
 	}
 
-	
 	//fprintf(str, "Server is initialized\n");
 	//fflush(str);
 
 	char buf[5000];
-
-	
-
 	pView = (BYTE*)data;
 	if (pView) {
 		pNext = pView;
 
 		pdw = (DWORD*)pView;
-		while (*pdw) {	
+		while (*pdw) {
 			switch (*pdw) {
 				case FDS_ACTION_READ:
 				case FDS_ACTION_READTRUE:
 					{
-
-
 						pHdrR = (FDS_ACTION_READ_HDR*)pdw;
 						pNext += sizeof(FDS_ACTION_READ_HDR);
-
 						sprintf(buf, "Get variable %x - %d\n", pHdrR->offset, pHdrR->size);
 						fdsError(buf);
 						//fflush(str);
-
 						GetVariable(pNext, pHdrR->offset, pHdrR->size);
 						pNext += pHdrR->size;
 						pdw = (DWORD*)pNext;
@@ -333,28 +307,20 @@ void ProcessSocketData(char* data, int size)
 				case FDS_ACTION_WRITE:
 				case FDS_ACTION_WRITETRUE:
 					{
-
 						pHdrW = (FDS_ACTION_WRITE_HDR*)pdw;
 						pNext += sizeof(FDS_ACTION_WRITE_HDR);
-
 						//fprintf(str, "Set variable %x\n", pHdrW->offset);
 						//fflush(str);
-
 						WriteVariable((BYTE*)pNext, pHdrW->offset, pHdrW->size);
 						pNext += pHdrW->size;
 						pdw = (DWORD*)pNext;
 					}
 					break;
 				default:
-					{
-						*pdw = 0;
-					}
+					*pdw = 0;
 					break;
 			}
-
 			fdsError("Process Data complete\n");
-
-
 		}
 
 		/*pNext += 4;

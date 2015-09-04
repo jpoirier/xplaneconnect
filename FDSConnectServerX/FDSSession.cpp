@@ -13,7 +13,6 @@ void module_init(HINSTANCE dllInstance)
 	FILE* str = fopen("FDSWideConnection.out", "w");
 	fprintf(str, "FDSWideConnectionServer init OK!\n");
 
-
 	FDSMemBlock = new BYTE[0x10000];
 
 	for (int i = 0; i < 0x10000; i++) {
@@ -21,14 +20,14 @@ void module_init(HINSTANCE dllInstance)
 	}
 
 	//InitializeCriticalSection(&GDILock);
-    hThread = CreateThread( 
-            NULL,				// no security attribute 
-            0,					// default stack size 
+    hThread = CreateThread(
+            NULL,				// no security attribute
+            0,					// default stack size
             (LPTHREAD_START_ROUTINE) SocketServer,
-            (LPVOID) 0,			// thread parameter 
-            0,					// not suspended 
+            (LPVOID) 0,			// thread parameter
+            0,					// not suspended
             &dwThreadId);		// returns thread ID
-	
+
 	if (hThread)
 		fprintf(str, "Create thread OK!\n");
 

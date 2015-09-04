@@ -40,8 +40,7 @@ BOOL APIENTRY DllMain( HINSTANCE hModule,
 
 	hDLLInstance = hModule;
 
-    switch (ul_reason_for_call)
-    {
+    switch (ul_reason_for_call) {
     case DLL_PROCESS_ATTACH:
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:
@@ -52,12 +51,8 @@ BOOL APIENTRY DllMain( HINSTANCE hModule,
 }
 #endif
 
-
-
-
 PLUGIN_API int XPluginStart(char* name, char* signature, char* description)
 {
-
 	strcpy(name, "XConnectServer");
 	strcpy(signature, "FDSoft.XConnectServer");
 	strcpy(description, "Provides the same functionality as FSUIPC");
@@ -70,6 +65,7 @@ PLUGIN_API int XPluginEnable(void)
 {
 	return 1;
 }
+
 PLUGIN_API void XPluginDisable(void)
 {
 	return;
