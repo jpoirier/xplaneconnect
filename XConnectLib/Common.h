@@ -39,8 +39,6 @@ extern bool RollDisconnect;
 extern XPLMDataRef test;
 
 
-
-
 typedef std::map<string, XPLMDataRef> StringMap;
 
 extern StringMap VarMap;

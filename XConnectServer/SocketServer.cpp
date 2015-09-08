@@ -103,11 +103,11 @@ DWORD WINAPI SocketServer(void)
 
 	fdsError("Starting loop\n");
 
-	while(true) {
+	while (true) {
 		int fromlen = sizeof(from);
 		int len = recvfrom(sd, data, sizeof(data), 0, &from, &fromlen);
 
-		if(len>0) {
+		if (len > 0) {
 			//fdsError("Data received\n");
 			sprintf(buf, "Data received: %d\n", len);
 			fdsError(buf);
@@ -161,36 +161,36 @@ void ProcessSocketData(char* data, int size)
 
 		pdw = (DWORD*)pView;
 		while (*pdw) {
-			switch (*pdw) {
-			case XC_ACTION_READ:
-			case XC_ACTION_READTRUE:
-				{
-					pHdrR = (XC_ACTION_READ_HDR*)pdw;
-					pNext += sizeof(XC_ACTION_READ_HDR);
-					sprintf(buf, "Get variable %x - %d\n", pHdrR->offset, pHdrR->size);
-					fdsError(buf);
-					//fflush(str);
-					GetVariable(pNext, pHdrR->offset, pHdrR->size);
-					pNext += pHdrR->size;
-					pdw = (DWORD*)pNext;
-				}
-				break;
-			case XC_ACTION_WRITE:
-			case XC_ACTION_WRITETRUE:
-				{
-					pHdrW = (XC_ACTION_WRITE_HDR*)pdw;
-					pNext += sizeof(XC_ACTION_WRITE_HDR);
-					//fprintf(str, "Set variable %x\n", pHdrW->offset);
-					//fflush(str);
-					WriteVariable((BYTE*)pNext, pHdrW->offset, pHdrW->size);
-					pNext += pHdrW->size;
-					pdw = (DWORD*)pNext;
-				}
-				break;
-			default:
-				*pdw = 0;
-				break;
+		switch (*pdw) {
+		case XC_ACTION_READ:
+		case XC_ACTION_READTRUE:
+			{
+				pHdrR = (XC_ACTION_READ_HDR*)pdw;
+				pNext += sizeof(XC_ACTION_READ_HDR);
+				sprintf(buf, "Get variable %x - %d\n", pHdrR->offset, pHdrR->size);
+				fdsError(buf);
+				//fflush(str);
+				GetVariable(pNext, pHdrR->offset, pHdrR->size);
+				pNext += pHdrR->size;
+				pdw = (DWORD*)pNext;
 			}
+			break;
+		case XC_ACTION_WRITE:
+		case XC_ACTION_WRITETRUE:
+			{
+				pHdrW = (XC_ACTION_WRITE_HDR*)pdw;
+				pNext += sizeof(XC_ACTION_WRITE_HDR);
+				//fprintf(str, "Set variable %x\n", pHdrW->offset);
+				//fflush(str);
+				WriteVariable((BYTE*)pNext, pHdrW->offset, pHdrW->size);
+				pNext += pHdrW->size;
+				pdw = (DWORD*)pNext;
+			}
+			break;
+		default:
+			*pdw = 0;
+			break;
+		}
 
 			fdsError("Process Data complete\n");
 		}

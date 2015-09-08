@@ -148,9 +148,9 @@ void GetVariable(BYTE* target, DWORD offset, DWORD size)
 	std::vector<std::pair<size_t, VariableReader> > readers;
 	GetVariableReaders(offset, size, readers);
 	for (size_t i = 0; i < readers.size(); ++i) {
-	  size_t off = readers[i].first;
-	  VariableReader& reader = readers[i].second;
-	  reader(XConnectMemBlock + off);
+        size_t off = readers[i].first;
+        VariableReader& reader = readers[i].second;
+        reader(XConnectMemBlock + off);
 	}
 
 	BYTE* memory = XConnectMemBlock;

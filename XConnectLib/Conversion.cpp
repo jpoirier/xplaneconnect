@@ -68,7 +68,6 @@ int GetBCD(int orig)
     res = (res + dig4);
 
 	return res;
-
 }
 
 float WrapHeading(float hdg)

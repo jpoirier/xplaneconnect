@@ -73,7 +73,7 @@ BOOL CXCONNECTCLIENTDlg::OnInitDialog()
 	//  when the application's main window is not a dialog
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
-	
+
 	// TODO: Add extra initialization here
 	FILE* str = fopen("XCONNECTCLIENT.log", "w");
 	fprintf(str, "XCONNECTCLIENT is running...\n");
@@ -85,10 +85,10 @@ BOOL CXCONNECTCLIENTDlg::OnInitDialog()
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
-void CXCONNECTCLIENTDlg::OnDestroy() 
+void CXCONNECTCLIENTDlg::OnDestroy()
 {
 	CDialog::OnDestroy();
-	
+
 	// TODO: Add your message handler code here
 	CloseConnection();
 }
@@ -97,7 +97,7 @@ void CXCONNECTCLIENTDlg::OnDestroy()
 //  to draw the icon.  For MFC applications using the document/view model,
 //  this is automatically done for you by the framework.
 
-void CXCONNECTCLIENTDlg::OnPaint() 
+void CXCONNECTCLIENTDlg::OnPaint()
 {
 	if (IsIconic())
 	{
@@ -153,30 +153,29 @@ LRESULT CXCONNECTCLIENTDlg::OnFDSCall(WPARAM wParam, LPARAM lParam)
 			DWORD* pdw = (DWORD*)pView;
 			while (*pdw) {
 				switch (*pdw) {
-					case XC_ACTION_READ:
-					case XC_ACTION_READTRUE:
-						pHdrR = (XC_ACTION_READ_HDR*)pdw;
-						pNext += sizeof(XC_ACTION_READ_HDR);
-						pNext += pHdrR->size;
-						pdw = (DWORD*)pNext;
-						break;
-					case XC_ACTION_WRITE:
-					case XC_ACTION_WRITETRUE:
-						pHdrW = (XC_ACTION_WRITE_HDR*)pdw;
-						pNext += sizeof(XC_ACTION_WRITE_HDR) + pHdrW->size;
-						pdw = (DWORD*)pNext;
-						break;
-					default:
-						*pdw = 0;
-						break;
+				case XC_ACTION_READ:
+				case XC_ACTION_READTRUE:
+					pHdrR = (XC_ACTION_READ_HDR*)pdw;
+					pNext += sizeof(XC_ACTION_READ_HDR);
+					pNext += pHdrR->size;
+					pdw = (DWORD*)pNext;
+					break;
+				case XC_ACTION_WRITE:
+				case XC_ACTION_WRITETRUE:
+					pHdrW = (XC_ACTION_WRITE_HDR*)pdw;
+					pNext += sizeof(XC_ACTION_WRITE_HDR) + pHdrW->size;
+					pdw = (DWORD*)pNext;
+					break;
+				default:
+					*pdw = 0;
+					break;
 				}
 			}
 			pNext += 4;
 			if (CallServer(pView, pNext-pView)) {
 				result = XC_RETURN_SUCCESS;
 				m_Static1 = "Communication with XConnectServer OK";
-			}
-			else {
+			} else {
 				m_Static1 = "Communication with XConnectServer Failed!";
 				if (connected) {
 					CloseConnection();

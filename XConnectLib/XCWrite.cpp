@@ -67,7 +67,7 @@ void WriteVariable(BYTE* source, DWORD offset, DWORD size)
 		SetFloat("sim/flightmodel/engine/ENGN_thro_use", (float)fVal, 1);
 		SetInt("sim/operation/override/override_throttles", 0);
 	}
-	else if(offset == 0x0BB2) {
+	else if (offset == 0x0BB2) {
 		if (PitchDisconnect) {
 			SetInt("sim/operation/override/override_joystick_pitch", 1);
 			int16_t val;
@@ -76,8 +76,8 @@ void WriteVariable(BYTE* source, DWORD offset, DWORD size)
 			SetFloat("sim/joystick/yoke_pitch_ratio", ratio);
 		} else
 			SetInt("sim/operation/override/override_joystick_pitch", 0);
-	} else if(offset == 0x0BB6) {
-		if(RollDisconnect) {
+	} else if (offset == 0x0BB6) {
+		if (RollDisconnect) {
 			SetInt("sim/operation/override/override_joystick_roll", 1);
 			int16_t val;
 			CopyMemory(&val, source, size);
@@ -89,7 +89,7 @@ void WriteVariable(BYTE* source, DWORD offset, DWORD size)
 // TODO: rudder
  	// } else if(offset == 0x0BBA) {
 	// }
-	} else if(offset == 0x0C4E) {
+	} else if (offset == 0x0C4E) {
 		int16_t val;
 		CopyMemory(&val, source, size);
 		SetFloat("sim/cockpit/radios/nav1_obs_degm", (float)val);

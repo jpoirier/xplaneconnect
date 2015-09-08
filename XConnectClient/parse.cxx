@@ -22,7 +22,7 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <strings.h>
 #endif
 
-// global variables 
+// global variables
 // character read from the file
 
 token_type TOKENTYPE= is_eof;
@@ -98,24 +98,19 @@ token_type ReadToken(FILE *fp)
 		}
 
 		// Skip commentlines (lines thar begin with a # but not begin with "#>>").
-		if (car_read == '#')
-		{  
+		if (car_read == '#') {
 			car_read = getc(fp);
-			if (car_read == '>')
-			{
+			if (car_read == '>') {
 				car_read = getc(fp);
 				if (car_read == '>')
 					car_read = ' ';
-				else
-				{
+				else {
 					ungetc(car_read,fp);
 					fgets(TOKENBUFFER, 999, fp);
 					++g_parsingLineNb;
 					car_read = ' ';
 				}
-			}
-			else // skips line
-			{
+			} else { // skips line
 				ungetc(car_read,fp);
 				fgets(TOKENBUFFER, 999, fp);
 				++g_parsingLineNb;
@@ -125,17 +120,15 @@ token_type ReadToken(FILE *fp)
 	}
 
 	// It's end of file.
-	if (feof(fp))
-	{
+	if (feof(fp)) {
 		strcpy(TOKENBUFFER, "EOF");
-		TOKENTYPE = is_eof; 
+		TOKENTYPE = is_eof;
 		return TOKENTYPE;
 	}
 
 	// Could be brace.
 	TOKENTYPE = is_unknown;
-	switch (car_read)
-	{
+	switch (car_read) {
 	case '(':
 		TOKENTYPE =  is_open_parenthesis;
 		break;
@@ -171,19 +164,13 @@ token_type ReadToken(FILE *fp)
 			++g_parsingLineNb;
 		return TOKENTYPE;
 	}
-	
+
 	// It's an identifier.
-	if ((car_read >= 'A' &&
-		car_read <= 'Z' ) ||
-		(car_read >= 'a' &&
-		car_read <= 'z' )
-		)
-	{
+	if ((car_read >= 'A' && car_read <= 'Z' ) || (car_read >= 'a' && car_read <= 'z')) {
 		*(buf++) = (char)car_read;
-		while(1)
-		{
+		while (1) {
 			car_read = getc(fp);
-			if ( (car_read >= '0' &&
+			if ((car_read >= '0' &&
 				car_read <= '9') ||
 				(car_read >= 'A' &&
 				car_read <= 'Z')  ||
@@ -195,8 +182,7 @@ token_type ReadToken(FILE *fp)
 				) {
 				assert(buf - TOKENBUFFER < TOKENMAXSIZE * sizeof(char));
 				*(buf++) = (char)car_read;
-			}
-			else {
+			} else {
 				if (car_read == '\n')
 					++g_parsingLineNb;
 				*buf = 0;
@@ -226,26 +212,20 @@ token_type ReadToken(FILE *fp)
 		TOKENTYPE = is_string_value;
 		return TOKENTYPE;
 	}
-	
+
 	// It's a number.
-	if ((car_read >= '0' &&
-		car_read <= '9' ) ||
-		(car_read == '+') ||
-		(car_read == '-')) {
+	if ((car_read >= '0' && car_read <= '9' ) || (car_read == '+') || (car_read == '-')) {
 		assert(buf - TOKENBUFFER < TOKENMAXSIZE * sizeof(char));
 		*(buf++) = (char)car_read;
 		while (1) {
 			car_read = getc(fp);
 			if ((car_read >= '0' && car_read <= '9')  ||
-				(car_read == '.') ||
-				(car_read == '+') ||
-				(car_read == '-') ||
-				(car_read == 'e') ||
-				(car_read == 'E')) {
+					(car_read == '.') || (car_read == '+') ||
+					(car_read == '-') || (car_read == 'e') ||
+					(car_read == 'E')) {
 				assert(buf - TOKENBUFFER < TOKENMAXSIZE * sizeof(char));
 				*(buf++) = (char)car_read;
-			}
-			else {
+			} else {
 				if (car_read == '\n')
 					++g_parsingLineNb;
 				*buf = 0;
@@ -280,18 +260,18 @@ float stringToFloat(const char * s)
 
 char* TrimRight( char *szSource )
 {
-	
-	if (!szSource) return NULL;
+
+	if (!szSource)
+		return NULL;
 	// This method removes the trailing blanks at the end of a string
 	char *pszLastChar=szSource-1;
 	char *pszCurrent=szSource;
-		
+
 	// Set pointer to end of string to point to the character just
 	//  before the 0 at the end of the string.
 //	pszEOS = szSource + strlen( szSource ) - 1;
-	
-	while(*pszCurrent != '\0')
-	{
+
+	while (*pszCurrent != '\0') {
 		if (*pszCurrent!=' ')
 			pszLastChar = pszCurrent;
 		*pszCurrent++;
@@ -302,10 +282,11 @@ char* TrimRight( char *szSource )
 
 char* TrimLeft( char *szSource )
 {
-	
-	if (!szSource) return NULL;
+
+	if (!szSource)
+		return NULL;
 	// This method removes the trailing blanks at the end of a string
-	while ((*szSource)==' ')
+	while ((*szSource) == ' ')
 		szSource++;
 	return szSource;
 }
@@ -314,14 +295,12 @@ time_t getFileCreationTime(const char* path)
 {
 	struct _stat fileStatus;
 	int result = _stat( path, &fileStatus );
-	
+
 	/* Check if statistics are valid: */
-	if( result != 0 )
-	{
+	if (result != 0) {
 		printf( "Bad file path\n" );
 		return 0;
-	}
-	else
+	} else
 		return fileStatus.st_ctime;
 }
 
@@ -329,14 +308,12 @@ time_t getFileModificationTime(const char* path)
 {
 	struct _stat fileStatus;
 	int result = _stat( path, &fileStatus );
-	
+
 	/* Check if statistics are valid: */
-	if( result != 0 )
-	{
+	if (result != 0) {
 		printf( "Bad file path\n" );
 		return 0;
-	}
-	else
+	} else
 		return fileStatus.st_mtime;
 }
 
@@ -344,13 +321,11 @@ long getFileSize(const char* path)
 {
 	struct _stat fileStatus;
 	int result = _stat( path, &fileStatus );
-	
+
 	/* Check if statistics are valid: */
-	if( result != 0 )
-	{
+	if (result != 0) {
 		printf( "Bad file path\n" );
 		return 0;
-	}
-	else
+	} else
 		return fileStatus.st_size;
 }

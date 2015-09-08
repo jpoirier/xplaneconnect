@@ -221,7 +221,6 @@ namespace xcread
 	  for (int i = 0;i<6;i++)
 		  buf[i] = 0;
 
-
 	  if (ref != XPLM_NAV_NOT_FOUND) {
 		  XPLMGetNavAidInfo(ref,
 							  NULL,	// type
@@ -236,7 +235,6 @@ namespace xcread
 	  }
 
 	  CopyMemory(target, buf, 6);
-
   }
 
   void QNH(unsigned char* target)
@@ -414,7 +412,6 @@ namespace xcread
 	  }
 
 	  int32_t lat = (int32_t)(latitude / 90.0 * 10001750.0);
-
 	  XCCopyMemory(target, &lat);
   }
 
@@ -431,7 +428,7 @@ namespace xcread
 	  XPLMNavRef ref = XPLMFindNavAid(NULL, NULL, &latitude, &longitude, &freq, 1036 + 16 + 32);
 
 	  char buf[6];
-	  for(int i = 0;i<6;i++)
+	  for (int i = 0;i<6;i++)
 		  buf[i] = 0;
 
 
@@ -465,7 +462,7 @@ namespace xcread
 	  XPLMNavRef ref = XPLMFindNavAid(NULL, NULL, &latitude, &longitude, &freq, 1036 + 16 + 32);
 
 	  char buf[6];
-	  for(int i = 0;i<6;i++)
+	  for (int i = 0;i<6;i++)
 		  buf[i] = 0;
 
 	  if (ref != XPLM_NAV_NOT_FOUND) {
@@ -870,7 +867,7 @@ namespace xcread
 	  for (int i = 0; i < 6; i++)
 		  buf[i] = 0;
 
-	  if(ref != XPLM_NAV_NOT_FOUND) {
+	  if (ref != XPLM_NAV_NOT_FOUND) {
 		  XPLMGetNavAidInfo(ref,
 							  NULL,	// type
 							  &latitude,	// lat

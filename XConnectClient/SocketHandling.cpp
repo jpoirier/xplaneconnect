@@ -54,7 +54,7 @@ BOOL OpenConnection(char* host)
 	sad.sin_port = htons((u_short)port);
 
     ptrh = gethostbyname(host);
-    if (((char *)ptrh) == NULL ) {
+    if (((char*)ptrh) == NULL ) {
 		sprintf(buf,"invalid host: %s\n", host);
 		fdsError(buf);
 		return FALSE;
@@ -98,53 +98,49 @@ BOOL CallServer(BYTE* data, int size)
 	/*FILE* str = fopen("XCONNECTCLIENT.out", "a+");
 	if(str)
 	{
-		
+
 		fprintf(str, "Send data to server.  Size: %d\n", size);
 		fclose(str);
 	}*/
 
 	sockaddr from;
-	
+
 	int fromlen = sizeof(sockaddr);
 
 	int error = 0;
 
 	char cSize[4];
-	
+
 	memcpy(cSize, &size, 4);
 
 	error = sendto(sd, cSize, 4, 0, (sockaddr*)(&sad), sizeof(sad));
 	if(error == SOCKET_ERROR)
 		return FALSE;
 
-	for(int i=0;i<size;i+=1000)
-	{
-		error = sendto(sd, (const char*)(data + i), min(1000, size - i) ,0, (sockaddr*)(&sad), sizeof(sad));
+	for (int i = 0; i < size; i += 1000) {
+		error = sendto(sd, (const char*)(data+i), min(1000, size-i) ,0, (sockaddr*)(&sad), sizeof(sad));
 
-		if(error == SOCKET_ERROR)
+		if (error == SOCKET_ERROR)
 			return FALSE;
 	}
 	/*str = fopen("XCONNECTCLIENT.out", "a+");
-	if(str)
+	if (str)
 	{
-		
+
 		fprintf(str, "Data sent.  Size: %d\n", error);
 		fclose(str);
 	}*/
 
-	for(int i=0;i<size;i+=1000)
-	{
-		error = recvfrom(sd, (char*)(data + i), min(1000, size - i), 0, &from, &fromlen );
+	for (int i = 0; i < size; i += 1000) {
+		error = recvfrom(sd, (char*)(data+i), min(1000, size-i), 0, &from, &fromlen );
 		if(error == SOCKET_ERROR)
 			return FALSE;
 	}
 	/*str = fopen("XCONNECTCLIENT.out", "a+");
-	if(str)
-	{
-		
+	if (str) {
 		fprintf(str, "Received data back.  Size: %d\n", error);
 		fclose(str);
 	}*/
-	
+
 	return TRUE;
 }
