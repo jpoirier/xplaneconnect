@@ -12,7 +12,6 @@ details.
 You should have received a copy of the GNU Lesser General Public License along
 with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-
 #include "XCSession.h"
 #include "XPLMPlugin.h"
 #include "XPLMDisplay.h"
@@ -53,8 +52,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 	    FILE* str = fopen("XConnect.out", "a+");
         fprintf(str, "sizeof(XC_ACTION_READ_HDR)=%d\n", (int)sizeof(XC_ACTION_READ_HDR));
-	    if (message == XC_CALL) fprintf(str, "XC_CALL");
-	    if (message == XCModuleCallMessage) fprintf(str, "XCModuleCallMessage");
+
+	    if (message == XC_CALL)
+			fprintf(str, "XC_CALL");
+	    if (message == XCModuleCallMessage)
+			fprintf(str, "XCModuleCallMessage");
+
         fprintf(str, " W=%d L=%p\n", (int)wParam, (void*)lParam);
 
 		if (message == XCModuleCallMessage) {
@@ -80,13 +83,27 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				pdw = (DWORD*)pView;
 				while ((*pdw) && (result == XC_RETURN_SUCCESS))  {
                     switch (*pdw) {
-                    case XC_ACTION_READ:        fprintf(str, "  XC_ACTION_READ\n"); break;
-                    case XC_ACTION_READTRUE:    fprintf(str, "  XC_ACTION_READTRUE\n"); break;
-                    case XC_ACTION_WRITE:       fprintf(str, "  XC_ACTION_WRITE\n"); break;
-                    case XC_ACTION_WRITETRUE:   fprintf(str, "  XC_ACTION_WRITETRUE\n"); break;
-                    case XC_ACTION_READTOKEN:   fprintf(str, "  XC_ACTION_READTOKEN\n"); break;
-                    case XC_ACTION_WRITETOKEN:  fprintf(str, "  XC_ACTION_WRITETOKEN\n"); break;
-                    case XC_ACTION_SEARCH:      fprintf(str, "  XC_ACTION_SEARCH\n"); break;
+                    case XC_ACTION_READ:
+						fprintf(str, "  XC_ACTION_READ\n");
+						break;
+                    case XC_ACTION_READTRUE:
+						fprintf(str, "  XC_ACTION_READTRUE\n");
+						break;
+                    case XC_ACTION_WRITE:
+						fprintf(str, "  XC_ACTION_WRITE\n");
+						break;
+                    case XC_ACTION_WRITETRUE:
+						fprintf(str, "  XC_ACTION_WRITETRUE\n");
+						break;
+                    case XC_ACTION_READTOKEN:
+						fprintf(str, "  XC_ACTION_READTOKEN\n");
+						break;
+                    case XC_ACTION_WRITETOKEN:
+						fprintf(str, "  XC_ACTION_WRITETOKEN\n");
+						break;
+                    case XC_ACTION_SEARCH:
+						fprintf(str, "  XC_ACTION_SEARCH\n");
+						break;
                     }
 					switch (*pdw) {
 					case XC_ACTION_READ:
@@ -230,7 +247,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		return result;
 	}
 	return (DefWindowProc(hWnd, message, wParam, lParam));
-
 }
 
 void module_init(HINSTANCE dllInstance)
@@ -247,13 +263,25 @@ void module_init(HINSTANCE dllInstance)
 	wc.hInstance = dllInstance;
 
 	if (RegisterClass(&wc)) {
-		hWnd = CreateWindowEx(NULL, TEXT("FS98MAIN"), TEXT("FS98MAIN"), WS_POPUP, 0,0,10,10,NULL, NULL, dllInstance, NULL);
+		hWnd = CreateWindowEx(NULL,
+							  TEXT("FS98MAIN"),
+							  TEXT("FS98MAIN"),
+							  WS_POPUP,
+							  0,
+							  0,
+							  10,
+							  10,
+							  NULL,
+							  NULL,
+							  dllInstance,
+							  NULL);
 		if (hWnd) {
 			fprintf(str, "Create window OK: %d\n", hWnd);
 			XC_CALL = RegisterWindowMessage(TEXT(XC_CALL_CONNECTION));
 			if (XC_CALL != 0) {
 				fprintf(str, "Register call message OK\n");
 				XConnectMemBlock = new BYTE[0x10000];
+
 				for (int i = 0; i < 0x10000; i++) {
 					XConnectMemBlock[i] = 0;
 				}

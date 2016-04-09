@@ -12,11 +12,11 @@ details.
 You should have received a copy of the GNU Lesser General Public License along
 with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-
 #pragma once
 
 #include <windows.h>
 #include <stdio.h>
+
 #include "main.h"
 
 
@@ -28,7 +28,6 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 #define XC_ACTION_READTOKEN			(5)
 #define XC_ACTION_WRITETOKEN		(6)
 #define XC_ACTION_SEARCH			(7)
-
 #define XC_RETURN_FAILURE			(0)
 #define XC_RETURN_SUCCESS			(1)
 

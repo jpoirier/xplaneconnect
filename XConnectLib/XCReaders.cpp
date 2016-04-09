@@ -12,13 +12,13 @@ details.
 You should have received a copy of the GNU Lesser General Public License along
 with this program. If not, see <http://www.gnu.org/licenses/>.
 */
+#include <stdio.h>
+#include <stdint.h>
 
 #include "XCReaders.h"
 #include "XCRead.h"
 #include "Conversion.h"
 #include "Common.h"
-#include <stdio.h>
-#include <stdint.h>
 
 XPLMDataRef GetDataRef(const char* dataRef)
 {

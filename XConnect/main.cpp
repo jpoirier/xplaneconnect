@@ -12,6 +12,9 @@ details.
 You should have received a copy of the GNU Lesser General Public License along
 with this program. If not, see <http://www.gnu.org/licenses/>.
 */
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "XPLMPlugin.h"
 #include "XPLMDisplay.h"
@@ -21,10 +24,8 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "XPLMMenus.h"
 #include "XPLMUtilities.h"
 #include "XPLMScenery.h"
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include "XCSession.h"
+
 #include "main.h"
 
 const char* version = "0.1.1";
@@ -35,28 +36,24 @@ const char* version = "0.1.1";
 HINSTANCE hDLLInstance = 0;
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
+
      PLUGIN_API int XPluginStart(char* name, char* signature, char* description);
      PLUGIN_API int XPluginEnable(void);
      PLUGIN_API void XPluginDisable(void);
      PLUGIN_API void XPluginStop(void);
      PLUGIN_API void XPluginReceiveMessage(XPLMPluginID inFromWho, int inMessage, void* inParam);
- #ifdef __cplusplus
+
+#ifdef __cplusplus
 }
 #endif
 
-BOOL APIENTRY DllMain( HINSTANCE hModule,
-                       DWORD  ul_reason_for_call,
-                       LPVOID lpReserved
-					 )
+BOOL APIENTRY DllMain(HINSTANCE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
 {
-
 	hDLLInstance = hModule;
 
-    switch (ul_reason_for_call)
-    {
+    switch (ul_reason_for_call) {
     case DLL_PROCESS_ATTACH:
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:
@@ -65,7 +62,7 @@ BOOL APIENTRY DllMain( HINSTANCE hModule,
     }
     return TRUE;
 }
-#endif
+#endif /* #if IBM */
 
 PLUGIN_API int XPluginStart(char* name, char* signature, char* description)
 {
@@ -75,7 +72,6 @@ PLUGIN_API int XPluginStart(char* name, char* signature, char* description)
 	module_init(hDLLInstance);
 	return 1;
 }
-
 
 PLUGIN_API int XPluginEnable(void)
 {

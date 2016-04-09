@@ -12,13 +12,10 @@ details.
 You should have received a copy of the GNU Lesser General Public License along
 with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-
-#ifndef __XCONNECTLIB__XCREADERS_H__
-#define __XCONNECTLIB__XCREADERS_H__
+#pragma once
 
 namespace xcread
 {
-
   void GroundElev(unsigned char* target);
   void HoursLocal(unsigned char* target);
   void MinsLocal(unsigned char* target);
@@ -115,7 +112,4 @@ namespace xcread
   void Eng2ThrottleInput(unsigned char* target);
   void StandbyQNH(unsigned char* target);
   void StandbyAltitude(unsigned char* target);
-
 } // namespace xcread
-
-#endif // __XCONNECTLIB__XCREADERS_H__

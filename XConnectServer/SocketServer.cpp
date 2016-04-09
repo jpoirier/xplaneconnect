@@ -15,25 +15,21 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 
 //
 //#include <winsock.h>
-
-
-#include "SocketServer.h"
-
 #include <stdio.h>
 #include <string.h>
 
+#include <errno.h>
 #include <windows.h>
 
+#include "SocketServer.h"
 #include "XConnectionTypes.h"
-
 
 #include "XCRead.h"
 #include "XCWrite.h"
-#include <errno.h>
 
-#define BUFSIZE			0x7F00
-#define PROTOPORT       5193            /* default protocol port number */
-#define QLEN            6               /* size of request queue        */
+#define BUFSIZE			(0x7F00)
+#define PROTOPORT       (5193)            /* default protocol port number */
+#define QLEN            (6)              /* size of request queue        */
 
 static BOOL ServerInitialized = FALSE;
 
