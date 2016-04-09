@@ -20,7 +20,7 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "Common.h"
 #include "XCReaders.h"
 #include "Conversion.h"
-#include "XCEead.h"
+#include "XCRead.h"
 
 
 typedef std::function<void(unsigned char*)> VariableReader;

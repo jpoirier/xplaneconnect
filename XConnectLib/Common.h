@@ -14,7 +14,7 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#include <windows.h>
+#include <Windows.h>
 #include <map>
 #include <string>
 #include <cstdlib>

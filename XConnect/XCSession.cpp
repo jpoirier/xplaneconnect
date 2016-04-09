@@ -12,6 +12,7 @@ details.
 You should have received a copy of the GNU Lesser General Public License along
 with this program. If not, see <http://www.gnu.org/licenses/>.
 */
+#pragma comment(lib,"user32.lib")
 #include <stdio.h>
 
 #include "Common.h"
@@ -38,7 +39,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		XC_ACTION_WRITETOKEN_HDR* pHdrWT = NULL;
 		XC_ACTION_SEARCH_HDR* pHdrS = NULL;
 		DWORD* pdw = NULL;
-		DWORD true_offset;
+		// DWORD true_offset;
 		char szName[MAX_PATH];
 		ATOM atom = wParam;
 		LRESULT result = XC_RETURN_FAILURE;
@@ -56,8 +57,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		if (message == XCModuleCallMessage) {
 			hMap = (BYTE*)lParam;
 		} else {
-			GlobalGetAtomName(atom, (LPWSTR)szName, MAX_PATH);
-			hMap = OpenFileMapping(FILE_MAP_WRITE, FALSE, (LPWSTR)szName);
+			GlobalGetAtomName(atom, reinterpret_cast<LPSTR>(szName), MAX_PATH);
+			hMap = OpenFileMapping(FILE_MAP_WRITE, FALSE, reinterpret_cast<LPSTR>(szName));
 
             MEMORY_BASIC_INFORMATION info;
             VirtualQuery(hMap, &info, sizeof(info));
@@ -269,7 +270,7 @@ void module_init(HINSTANCE dllInstance)
 							  dllInstance,
 							  NULL);
 		if (hWnd) {
-			fprintf(str, "Create window OK: %d\n", hWnd);
+			fprintf(str, "Create window OK: %p\n", hWnd);
 			XC_CALL = RegisterWindowMessage(TEXT(XC_CALL_CONNECTION));
 			if (XC_CALL != 0) {
 				fprintf(str, "Register call message OK\n");

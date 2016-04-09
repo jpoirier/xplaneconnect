@@ -12,6 +12,7 @@ details.
 You should have received a copy of the GNU Lesser General Public License along
 with this program. If not, see <http://www.gnu.org/licenses/>.
 */
+#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 
 #include <string.h>
@@ -32,24 +33,17 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 
 const char* version = "0.1.1";
 
-#if IBM
 #include <windows.h>
 
 HINSTANCE hDLLInstance = 0;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
-     PLUGIN_API int XPluginStart(char* name, char* signature, char* description);
-     PLUGIN_API int XPluginEnable(void);
-     PLUGIN_API void XPluginDisable(void);
-     PLUGIN_API void XPluginStop(void);
-     PLUGIN_API void XPluginReceiveMessage(XPLMPluginID inFromWho, int inMessage, void* inParam);
+PLUGIN_API int XPluginStart(char* name, char* signature, char* description);
+PLUGIN_API int XPluginEnable(void);
+PLUGIN_API void XPluginDisable(void);
+PLUGIN_API void XPluginStop(void);
+PLUGIN_API void XPluginReceiveMessage(XPLMPluginID inFromWho, int inMessage, void* inParam);
 
-#ifdef __cplusplus
-}
-#endif
 
 BOOL APIENTRY DllMain(HINSTANCE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
 {
@@ -64,7 +58,6 @@ BOOL APIENTRY DllMain(HINSTANCE hModule, DWORD  ul_reason_for_call, LPVOID lpRes
     }
     return TRUE;
 }
-#endif /* #if IBM */
 
 PLUGIN_API int XPluginStart(char* name, char* signature, char* description)
 {
