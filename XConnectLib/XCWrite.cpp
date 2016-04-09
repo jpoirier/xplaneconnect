@@ -43,7 +43,7 @@ void SetInt(const char* dataRef, int value)
 
 void WriteVariable(BYTE* source, DWORD offset, DWORD size)
 {
-	FILE* str = fopen("FDSConnectX.out", "a+");
+	FILE* str = fopen("FDSConnectX.out.txt", "a+");
 
 	if (offset == 0x0330) {
 		int16_t val;
@@ -66,16 +66,16 @@ void WriteVariable(BYTE* source, DWORD offset, DWORD size)
 		SetInt("sim/operation/override/override_throttles", 1);
 		SetFloat("sim/flightmodel/engine/ENGN_thro_use", (float)fVal, 1);
 		SetInt("sim/operation/override/override_throttles", 0);
-	}
-	else if (offset == 0x0BB2) {
+	} else if (offset == 0x0BB2) {
 		if (PitchDisconnect) {
 			SetInt("sim/operation/override/override_joystick_pitch", 1);
 			int16_t val;
 			CopyMemory(&val, source, size);
 			float ratio = val / 16383.0f;
 			SetFloat("sim/joystick/yoke_pitch_ratio", ratio);
-		} else
+		} else {
 			SetInt("sim/operation/override/override_joystick_pitch", 0);
+		}
 	} else if (offset == 0x0BB6) {
 		if (RollDisconnect) {
 			SetInt("sim/operation/override/override_joystick_roll", 1);
@@ -94,8 +94,7 @@ void WriteVariable(BYTE* source, DWORD offset, DWORD size)
 		CopyMemory(&val, source, size);
 		SetFloat("sim/cockpit/radios/nav1_obs_degm", (float)val);
 		//fprintf(str, "Set Nav1 OBS: %d\n", val);
-	}
-	else if (offset == 0x0C5E) {
+	} else if (offset == 0x0C5E) {
 		int16_t val;
 		CopyMemory(&val, source, size);
 		SetFloat("sim/cockpit/radios/nav2_obs_degm", (float)val);
@@ -145,7 +144,7 @@ void WriteVariable(BYTE* source, DWORD offset, DWORD size)
 	} else {
 		fprintf(str, "Unknown offset: %x\n", offset);
 		BYTE* memory = XConnectMemBlock;
-		memory+=offset;
+		memory += offset;
 		CopyMemory(memory, source, size);
 	}
 

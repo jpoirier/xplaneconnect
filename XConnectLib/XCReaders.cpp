@@ -34,7 +34,6 @@ XPLMDataRef GetDataRef(const char* dataRef)
 
 	//intvar = XPLMFindDataRef(dataRef);
 	return intvar;
-
 }
 
 float GetFloat(const char* dataRef)
@@ -63,7 +62,6 @@ float GetFloat(const char* dataRef, int offset)
 	intvar = XPLMFindDataRef(dataRef);
 	float ret;
 	XPLMGetDatavf(intvar, &ret, offset, 1);
-
 	return ret;
 }
 int GetInt(const char* dataRef, int offset)
@@ -72,9 +70,7 @@ int GetInt(const char* dataRef, int offset)
 	intvar = XPLMFindDataRef(dataRef);
 	int ret;
 	XPLMGetDatavi(intvar, &ret, offset, 1);
-
 	return ret;
-
 }
 
 namespace xcread

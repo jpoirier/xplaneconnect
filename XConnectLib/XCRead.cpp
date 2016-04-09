@@ -143,7 +143,7 @@ void GetVariable(BYTE* target, DWORD offset, DWORD size)
 	//sprintf(debug, "XConnect: read offset 0x%lx (%lu bytes)\n", offset, size);
 	//XPLMDebugString(debug);
 
-//	FILE* str = fopen("XConnect.out", "a+");
+//	FILE* str = fopen("XConnect.out.txt", "a+");
 
 	std::vector<std::pair<size_t, VariableReader> > readers;
 	GetVariableReaders(offset, size, readers);

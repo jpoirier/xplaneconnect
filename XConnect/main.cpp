@@ -62,7 +62,7 @@ BOOL APIENTRY DllMain(HINSTANCE hModule, DWORD  ul_reason_for_call, LPVOID lpRes
 PLUGIN_API int XPluginStart(char* name, char* signature, char* description)
 {
 	strcpy(name, "XConnect");
-	strcpy(signature, "Oktalist.XConnect");
+	strcpy(signature, "jdp.xconnect");
 	strcpy(description, "Provides the same functionality as FSUIPC");
 	module_init(hDLLInstance);
 	return 1;

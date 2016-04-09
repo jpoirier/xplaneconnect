@@ -44,7 +44,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		ATOM atom = wParam;
 		LRESULT result = XC_RETURN_FAILURE;
 
-	    FILE* str = fopen("XConnect.out", "a+");
+	    FILE* str = fopen("XConnect.out.txt", "a+");
         fprintf(str, "sizeof(XC_ACTION_READ_HDR)=%d\n", (int)sizeof(XC_ACTION_READ_HDR));
 
 	    if (message == XC_CALL)
@@ -190,7 +190,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 												}
 											}
 											if (eq) {
-												str = fopen("modules\\FDSConnection.out", "a+");
+												str = fopen("modules\\FDSConnection.out.txt", "a+");
 												sprintf(buf, "value found at %d\n", (long)os);
 												fprintf(str, buf);
 												fclose(str);
@@ -209,7 +209,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 												}
 											}
 											if (eq) {
-												str = fopen("modules\\FDSConnection.out", "a+");
+												str = fopen("modules\\FDSConnection.out.txt", "a+");
 												sprintf(buf, "value found at %d\n", (long)os);
 												fprintf(str, buf);
 												fclose(str);
@@ -247,7 +247,7 @@ void module_init(HINSTANCE dllInstance)
 {
 // TODO: name update
 	char szClassName[] = "FS98MAIN";
-	FILE* str = fopen("XConnect.out", "w");
+	FILE* str = fopen("XConnect.out.txt", "w");
 	fprintf(str, "XConnect Initialisation\n");
 
 	ZeroMemory(&wc, sizeof(wc));
