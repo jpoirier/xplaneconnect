@@ -14,11 +14,6 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#include <windows.h>
-#include <stdio.h>
-
-#include "main.h"
-
 
 #define XC_CALL_CONNECTION			"FSASMLIB:IPC"
 #define XC_ACTION_READ				(1)
@@ -30,12 +25,6 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 #define XC_ACTION_SEARCH			(7)
 #define XC_RETURN_FAILURE			(0)
 #define XC_RETURN_SUCCESS			(1)
-
-
-void module_init(HINSTANCE dllInstance);
-void module_deinit();
-
-
 
 typedef struct tagXC_ACTION_READ_HDR {
 	DWORD action;
@@ -74,3 +63,6 @@ enum OperationType {
 	ReadingT,
 	SearchingT
 };
+
+extern void module_init(HINSTANCE dllInstance);
+extern void module_deinit();

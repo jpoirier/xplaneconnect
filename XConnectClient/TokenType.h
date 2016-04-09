@@ -12,9 +12,7 @@ details.
 You should have received a copy of the GNU Lesser General Public License along
 with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-
-#ifndef TOKENTYPE_H
-#define TOKENTYPE_H
+#pragma once
 
 typedef enum {
 	is_identifier, // Token that begin with a letter [a-z]
@@ -31,5 +29,3 @@ typedef enum {
 	is_eof,
 	is_unknown,
 } token_type;
-
-#endif

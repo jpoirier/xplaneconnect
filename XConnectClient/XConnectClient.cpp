@@ -15,11 +15,11 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 
 // XCONNECTCLIENT.cpp : Defines the class behaviors for the application.
 //
-
 #include "stdafx.h"
-#include "XConnectClient.h"
-#include "XConnectClientDlg.h"
+
 #include "parse.h"
+#include "XConnectClientDlg.h"
+#include "XConnectClient.h"
 
 
 #ifdef _DEBUG

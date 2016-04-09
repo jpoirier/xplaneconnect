@@ -12,9 +12,7 @@ details.
 You should have received a copy of the GNU Lesser General Public License along
 with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-
-#ifndef PIPEHANDLING__H
-#define PIPEHANDLING__H
+#pragma once
 
 #define FDS_ACTION_READ				(1)
 #define FDS_ACTION_WRITE			(2)
@@ -51,7 +49,6 @@ typedef struct tagFDS_ACTION_WRITETOKEN_HDR {
 	DWORD token;
 } FDS_ACTION_WRITETOKEN_HDR;
 
-void MyErrExit(LPTSTR mess);
-BOOL PipeCallServer(LPVOID lpvParam, int size, LPTSTR ServerName);
+extern void MyErrExit(LPTSTR mess);
+extern BOOL PipeCallServer(LPVOID lpvParam, int size, LPTSTR ServerName);
 
-#endif //  PIPEHANDLING__H

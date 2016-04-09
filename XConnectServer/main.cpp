@@ -12,6 +12,12 @@ details.
 You should have received a copy of the GNU Lesser General Public License along
 with this program. If not, see <http://www.gnu.org/licenses/>.
 */
+#include <windows.h>
+
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "XPLMPlugin.h"
 #include "XPLMDisplay.h"
 #include "XPLMGraphics.h"
@@ -20,16 +26,11 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "XPLMMenus.h"
 #include "XPLMUtilities.h"
 #include "XPLMScenery.h"
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
+
 #include "XCSession.h"
 
 
 const char* version = "0.0.1";
-
-#if IBM
-#include <windows.h>
 HINSTANCE hDLLInstance = 0;
 
 #ifdef __cplusplus
@@ -60,7 +61,6 @@ BOOL APIENTRY DllMain(HINSTANCE hModule, DWORD ul_reason_for_call, LPVOID lpRese
     }
     return TRUE;
 }
-#endif
 
 PLUGIN_API int XPluginStart(char* name, char* signature, char* description)
 {

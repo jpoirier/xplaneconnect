@@ -15,9 +15,9 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <stdio.h>
 #include <stdint.h>
 
-#include "XCWrite.h"
 #include "Common.h"
 #include "Conversion.h"
+#include "XCWrite.h"
 
 
 void SetFloat(const char* dataRef, float value)

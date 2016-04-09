@@ -15,7 +15,6 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 
 // XCONNECTCLIENT.h : main header file for the XCONNECTCLIENT application
 //
-
 #if !defined(AFX_XCONNECTCLIENT_H__B0627AF7_6782_4204_9FB2_E510F4C2B549__INCLUDED_)
 #define AFX_XCONNECTCLIENT_H__B0627AF7_6782_4204_9FB2_E510F4C2B549__INCLUDED_
 

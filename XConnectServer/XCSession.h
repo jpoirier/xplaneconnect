@@ -12,14 +12,9 @@ details.
 You should have received a copy of the GNU Lesser General Public License along
 with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-
 #pragma once
 
-#include <windows.h>
-#include <stdio.h>
 
-
-
-void module_init(HINSTANCE dllInstance);
-void module_deinit();
+extern void module_init(HINSTANCE dllInstance);
+extern void module_deinit();
 

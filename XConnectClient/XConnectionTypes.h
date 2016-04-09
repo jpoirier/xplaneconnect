@@ -12,8 +12,8 @@ details.
 You should have received a copy of the GNU Lesser General Public License along
 with this program. If not, see <http://www.gnu.org/licenses/>.
 */
+#pragma once
 
-#ifndef XCONNECTIONTYPES__H
 #define XCCONNECTIONTYPES__H
 #define XC_ACTION_READ				(1)
 #define XC_ACTION_WRITE				(2)
@@ -49,5 +49,3 @@ typedef struct tagXC_ACTION_WRITETOKEN_HDR {
 	DWORD action;
 	DWORD token;
 } XC_ACTION_WRITETOKEN_HDR;
-
-#endif // XCCONNECTIONTYPES__H

@@ -15,10 +15,10 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 
-float InchToHPA(float inch);
-float HPAToInch(float hpa);
-float MetersToKnot(float meters);
-float KilogramsToGallons(float kg);
-float LbsToKg(float lbs);
-int GetBCD(int orig);
-float WrapHeading(float hdg);
+extern float InchToHPA(float inch);
+extern float HPAToInch(float hpa);
+extern float MetersToKnot(float meters);
+extern float KilogramsToGallons(float kg);
+extern float LbsToKg(float lbs);
+extern int GetBCD(int orig);
+extern float WrapHeading(float hdg);

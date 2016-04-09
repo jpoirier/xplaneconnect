@@ -17,10 +17,10 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <functional>
 #include <utility>
 
-#include "xcread.h"
-#include "XCReaders.h"
-#include "conversion.h"
 #include "Common.h"
+#include "XCReaders.h"
+#include "Conversion.h"
+#include "XCEead.h"
 
 
 typedef std::function<void(unsigned char*)> VariableReader;

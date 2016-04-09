@@ -12,37 +12,29 @@ details.
 You should have received a copy of the GNU Lesser General Public License along
 with this program. If not, see <http://www.gnu.org/licenses/>.
 */
+#pragma once
 
-#ifndef __PARSE_H__
-#define __PARSE_H__
 
-#include <stdio.h>
-#include <sys/types.h>
+extern void SetParsingFileName(const char *path);
+extern const char* GetParsingFileName();
 
-#include "TokenType.h"
+extern int GetParsingLineNumber();
 
-void SetParsingFileName(const char *path);
-const char* GetParsingFileName();
+extern token_type ReadToken(FILE *fp);
 
-int GetParsingLineNumber();
+extern int TokenIs(const char *s1);
+extern int TokenTypeIs(token_type ty);
 
-token_type ReadToken(FILE *fp);
+extern token_type SkipBehindToken(FILE *fp, token_type ty);
+extern token_type SkipToToken(FILE *fp, token_type ty);
 
-int TokenIs(const char *s1);
-int TokenTypeIs(token_type ty);
+extern const char* GetTokenBuffer();
 
-token_type SkipBehindToken(FILE *fp, token_type ty);
-token_type SkipToToken(FILE *fp, token_type ty);
+extern void Writeln(FILE *str, int offset);
+extern float stringToFloat(const char *s);
+extern char* TrimRight(char *szSource );
+extern char* TrimLeft(char *szSource );
 
-const char* GetTokenBuffer();
-
-void Writeln(FILE *str, int offset);
-float stringToFloat(const char *s);
-char* TrimRight(char *szSource );
-char* TrimLeft(char *szSource );
-
-time_t getFileCreationTime(const char *path);
-time_t getFileModificationTime(const char *path);
-long getFileSize(const char *path);
-
-#endif __PARSE_H__
+extern time_t getFileCreationTime(const char *path);
+extern time_t getFileModificationTime(const char *path);
+extern long getFileSize(const char *path);

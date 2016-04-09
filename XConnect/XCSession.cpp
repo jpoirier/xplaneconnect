@@ -12,19 +12,12 @@ details.
 You should have received a copy of the GNU Lesser General Public License along
 with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-#include "XCSession.h"
-#include "XPLMPlugin.h"
-#include "XPLMDisplay.h"
-#include "XPLMGraphics.h"
-#include "XPLMProcessing.h"
-#include "XPLMDataAccess.h"
-#include "XPLMMenus.h"
-#include "XPLMUtilities.h"
-#include "XPLMScenery.h"
+#include <stdio.h>
 
+#include "Common.h"
 #include "XCRead.h"
 #include "XCWrite.h"
-#include "Common.h"
+#include "XCSession.h"
 
 WNDCLASS wc;
 HWND hWnd;

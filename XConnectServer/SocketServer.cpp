@@ -17,7 +17,6 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 //#include <winsock.h>
 #include <stdio.h>
 #include <string.h>
-
 #include <errno.h>
 #include <windows.h>
 
@@ -122,9 +121,6 @@ DWORD WINAPI SocketServer(void)
 	WSACleanup();
 	return TRUE;
 }
-
-
-
 
 void ProcessSocketData(char* data, int size)
 {

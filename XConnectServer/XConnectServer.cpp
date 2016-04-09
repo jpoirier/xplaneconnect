@@ -15,7 +15,6 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 
 // FDSWideConnectServerX.cpp : Defines the exported functions for the DLL application.
 //
-
 #include "stdafx.h"
 
 

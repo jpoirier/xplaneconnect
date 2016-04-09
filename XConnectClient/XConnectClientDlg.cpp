@@ -15,12 +15,11 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 
 // XCONNECTCLIENTDlg.cpp : implementation file
 //
-
 #include "stdafx.h"
-#include "XCONNECTCLIENT.h"
-#include "XCONNECTCLIENTDlg.h"
+#include "XConnectClient.h"
 #include "XConnectionTypes.h"
 #include "SocketHandling.h"
+#include "XConnectClientDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

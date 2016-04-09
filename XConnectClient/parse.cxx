@@ -12,15 +12,16 @@ details.
 You should have received a copy of the GNU Lesser General Public License along
 with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-
 #include <string.h>
 #include <assert.h>
-#include "parse.h"
 #include <sys/stat.h>
 
-#ifdef IBMCPLUSPLUS
+#include <stdio.h>
+#include <sys/types.h>
 #include <strings.h>
-#endif
+
+#include "TokenType.h"
+#include "parse.h"
 
 // global variables
 // character read from the file

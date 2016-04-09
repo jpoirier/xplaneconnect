@@ -12,12 +12,8 @@ details.
 You should have received a copy of the GNU Lesser General Public License along
 with this program. If not, see <http://www.gnu.org/licenses/>.
 */
+#pragma once
 
-#ifndef SocketHandling__h
-#define SocketHandling__h
-
-BOOL OpenConnection(char* host);
-BOOL CloseConnection();
-BOOL CallServer(BYTE* data, int size);
-
-#endif
+extern BOOL OpenConnection(char* host);
+extern BOOL CloseConnection();
+extern BOOL CallServer(BYTE* data, int size);

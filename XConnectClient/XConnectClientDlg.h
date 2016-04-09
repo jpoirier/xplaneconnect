@@ -15,13 +15,10 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 
 // XCONNECTCLIENTDlg.h : header file
 //
-
 #if !defined(AFX_XCONNECTCLIENTDLG_H__6093697C_27CE_4BEF_B1F8_2159A138463F__INCLUDED_)
 #define AFX_XCONNECTCLIENTDLG_H__6093697C_27CE_4BEF_B1F8_2159A138463F__INCLUDED_
 
-#if _MSC_VER > 1000
 #pragma once
-#endif // _MSC_VER > 1000
 
 /////////////////////////////////////////////////////////////////////////////
 // CXCONNECTCLIENTDlg dialog
