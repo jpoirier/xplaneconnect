@@ -101,7 +101,7 @@ void GetVariableReaders(size_t offset, size_t size, std::vector<std::pair<size_t
 		readers[0x08B8] = Eng1OilTemp;
 		readers[0x08D0] = Eng1OilQty;
 		readers[0x08DC] = Eng1HydraulicQty;
-		readers[0x0918] = Eng1FuelFlow; //
+		// readers[0x0918] = Eng1FuelFlow;
 		readers[0x0924] = Eng2Throttle;
 		readers[0x0BE0] = Flaps1;
 		readers[0x0BE4] = Flaps2;
@@ -114,7 +114,7 @@ void GetVariableReaders(size_t offset, size_t size, std::vector<std::pair<size_t
 		readers[0x0950] = Eng2OilTemp;
 		readers[0x0968] = Eng2OilQty;
 		readers[0x0974] = Eng2HydraulicQty;
-		readers[0x09B0] = Eng2FuelFlow; //
+		// readers[0x09B0] = Eng2FuelFlow;
 		readers[0x3000] = NAV1Info;
 		readers[0x301F] = NAV2Info;
 		readers[0x303E] = ADF1Info;
@@ -128,32 +128,67 @@ void GetVariableReaders(size_t offset, size_t size, std::vector<std::pair<size_t
 		readers[0x3332] = Eng2ThrottleInput;
 		readers[0x3542] = StandbyQNH;
 		readers[0x3544] = StandbyAltitude;
+		// 0x0898 2 Engine RPM
+		readers[0x0898] = EngRPM;
+		// 0x0840 2 Crashed Flag
+		readers[0x0840] = CrashedFlag;
 		// 0x036C 1 stall Warning
+		readers[0x036C] = StallWarning;
 		// 0x0BF0 4 Nose Gear Position
+		readers[0x0BF0] = NoseGearPos;
 		// 0x0918 8 Engine 1 Vibration
+		readers[0x0918] = Eng1Vibration;
 		// 0x09B0 8 Engine 2 Vibration
-		// 0x11BA 2 G-Force
+		readers[0x09B0] = Eng2Vibration;
+		// 0x11BA 2 G-Force  (g's * 625)
+		readers[0x11BA] = GForce;
 		// 0x11BE 2 Relative Angle of Attack
+		readers[0x11BE] = RelAOA;
 		// 0x3060 8 Lateral acceleration
+		readers[0x3060] = LatAccel;
 		// 0x3080 8 Roll acceleration
+		readers[0x3080] = RollAccel;
 		// 0x07BC 4 Autopilot Master switch
+		readers[0x07BC] = OttoMasterSwitch;
 		// 0x07D0 4 Autopilot Alitude Hold
+		readers[0x07D0] = OttoAltHold;
 		// 0x2410 8 Engine 1 Thrust in Pounds
+		readers[0x2410] = Eng1Thrust;
 		// 0x2ED0 8 Alpha - Radians
+		readers[0x2ED0] = Alpha;
 		// 0x2ED8 9 Beta - Radians
+		readers[0x2ED8] = Beta;
 		// 0x6030 8 Ground Speed - m/s
+		readers[0x6030] = GroundSpeed;
 		// 0x2EA8 8 Aileron deflection - rads
+		readers[0x2EA8] = AileronDeflection;
 		// 0x0BC0 2 Elevator Trim Control  (for AP following)
+		readers[0x0BC0] = ElevatorTrimCtrl;
 		// 0x05DC 2 Slew mode indicator
+		readers[0x05DC] = SlewModeInd;
 		// 0x0588 8 Sim local time in seconds
+		readers[0x0588] = SimLocalTimeSecs;
 		// 0x66F8 8 Jet/Propwash - Engine 1 in m/s
+		readers[0x66F8] = Eng1JetPropwash;
 		// 0x66E8 8 Stall Warning AoA - Degrees
+		readers[0x66E8] = StallWarningAOA;
 		// 0x30A8 8 Pitch Rate Rad/s (+ve nose up in X-Plane)
+		readers[0x30A8] = PitchRate;
 		// 0x66E0 8 CG Position displacement from default, meters
+		readers[0x66E0] = CGPosDispFromDflt;
 		// 0x0C02 2 Aileron Trim Control  (for AP following)
+		readers[0x0C02] = AileronTrimCtrl;
 		// 0x0C04 2 Rudder Trim Control  (for AP following)
+		readers[0x0C04] = RudderTrimCtrl;
 		// 0x0BBA 2 Elevator Control Input  (for AP following)
-		//
+		readers[0x0BBA] = ElevatorCtrlInput;
+		// Elevator position  (for AP following)
+		// 		Elev_FS_offset := 0x66DA 2 Ail_FS_offset := 0x66DC 2
+		readers[0x66DA] = ElevatorOffsetHeli;
+		readers[0x66DC] = AileronOffsetHeli;
+		//		Elev_FS_offset := 0x0BB2 2 Ail_FS_offset := 0x0BB6 2
+		readers[0x0BB2] = ElevatorOffset;
+		readers[0x0BB6] = AileronOffset;
 	}
 	while (size) {
 		if (readers[offset])

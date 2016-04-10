@@ -1030,4 +1030,163 @@ namespace xcread
 		int32_t alt = (int32_t)GetFloat("sim/flightmodel/misc/h_ind_copilot2");
 		XCCopyMemory(target, &alt);
 	}
+
+	// 0x0898 2 Engine RPM
+	void EngRPM(unsigned char* target)
+	{
+		// sim/cockpit2/engine/indicators/engine_speed_rpm	float[8]	n	revolutions/minute	Engine speed, radians per second
+	}
+	// 0x0840 2 Crashed Flag
+	void CrashedFlag(unsigned char* target)
+	{
+
+	}
+	// 0x036C 1 stall Warning
+	void StallWarning(unsigned char* target)
+	{
+		// sim/flightmodel/failures/stallwarning	int	y	???	Stall Warning
+	}
+	// 0x0BF0 4 Nose Gear Position
+	void NoseGearPos(unsigned char* target)
+	{
+
+	}
+	// 0x0918 8 Engine 1 Vibration
+	void Eng1Vibration(unsigned char* target)
+	{
+
+	}
+	// 0x09B0 8 Engine 2 Vibration
+	void Eng2Vibration(unsigned char* target)
+	{
+
+	}
+	// 0x11BA 2 G-Force  (g's * 625)
+	void GForce(unsigned char* target)
+	{
+		// sim/flightmodel2/misc/gforce_normal	float	n	todo	desc
+	}
+	// 0x11BE 2 Relative Angle of Attack
+	void RelAOA(unsigned char* target)
+	{
+		// sim/operation/failures/rel_AOA	int	y	failure_enum	AOA
+	}
+	// 0x3060 8 Lateral acceleration
+	void LatAccel(unsigned char* target)
+	{
+
+	}
+	// 0x3080 8 Roll acceleration
+	void RollAccel(unsigned char* target)
+	{
+
+	}
+	// 0x07BC 4 Autopilot Master switch
+	void OttoMasterSwitch(unsigned char* target)
+	{
+		// sim/cockpit/autopilot/autopilot_mode	int	y	enum	The autopilot master mode (off=0, flight director=1, on=2)
+	}
+	// 0x07D0 4 Autopilot Alitude Hold
+	void OttoAltHold(unsigned char* target)
+	{
+		// sim/cockpit/autopilot/altitude	float	y	ftmsl	Altitude dialed into the AP
+	}
+	// 0x2410 8 Engine 1 Thrust in Pounds
+	void Eng1Thrust(unsigned char* target)
+	{
+
+	}
+	// 0x2ED0 8 Alpha - Radians
+	void Alpha(unsigned char* target)
+	{
+		// sim/flightmodel/position/alpha	float	n	degrees	The pitch relative to the flown path (angle of attack)
+	}
+	// 0x2ED8 9 Beta - Radians
+	void Beta(unsigned char* target)
+	{
+		// sim/flightmodel/position/beta	float	n	degrees	The heading relative to the flown path (yaw)
+	}
+	// 0x6030 8 Ground Speed - m/s
+	void GroundSpeed(unsigned char* target)
+	{
+		// sim/flightmodel/position/groundspeed	float	n	meters/sec	The ground speed of the aircraft
+	}
+	// 0x2EA8 8 Aileron deflection - rads
+	void AileronDeflection(unsigned char* target)
+	{
+
+	}
+	// 0x0BC0 2 Elevator Trim Control  (for AP following)
+	void ElevatorTrimCtrl(unsigned char* target)
+	{
+		// sim/flightmodel2/controls/aileron_trim	float	y	ratio	Aileron trim, in part of MAX FLIGHT CONTROL
+		// DEFLECTION. So, if the aileron trim is deflected enough to move the ailerons through 30% of their travel,
+		// then that is an aileron trim of 0.3.
+	}
+	// 0x05DC 2 Slew mode indicator
+	void SlewModeInd(unsigned char* target)
+	{
+
+	}
+	// 0x0588 8 Sim local time in seconds
+	void SimLocalTimeSecs(unsigned char* target)
+	{
+		// sim/time/local_time_sec	float	n	seconds	Local time
+	}
+	// 0x66F8 8 Jet/Propwash - Engine 1 in m/s
+	void Eng1JetPropwash(unsigned char* target)
+	{
+
+	}
+	// 0x66E8 8 Stall Warning AoA - Degrees
+	void StallWarningAOA(unsigned char* target)
+	{
+		// sim/flightmodel2/misc/AoA_angle_degrees	float	n	degrees	Angle of attack probe.  Positive means aircracft
+		// nose is above the flight path in aircraft coordinates.
+	}
+	// 0x30A8 8 Pitch Rate Rad/s (+ve nose up in X-Plane)
+	void PitchRate(unsigned char* target)
+	{
+
+	}
+	// 0x66E0 8 CG Position displacement from default, meters
+	void CGPosDispFromDflt(unsigned char* target)
+	{
+
+	}
+	// 0x0C02 2 Aileron Trim Control  (for AP following)
+	void AileronTrimCtrl(unsigned char* target)
+	{
+
+	}
+	// 0x0C04 2 Rudder Trim Control  (for AP following)
+	void RudderTrimCtrl(unsigned char* target)
+	{
+
+	}
+	// 0x0BBA 2 Elevator Control Input  (for AP following)
+	void ElevatorCtrlInput(unsigned char* target)
+	{
+
+	}
+	// Elevator position  (for AP following)
+
+	// Elev_FS_offset := 0x66DA 2 Ail_FS_offset := 0x66DC 2
+	void ElevatorOffsetHeli(unsigned char* target)
+	{
+
+	}
+	void AileronOffsetHeli(unsigned char* target)
+	{
+
+	}
+	// Elev_FS_offset := 0x0BB2 2 Ail_FS_offset := 0x0BB6 2
+	void ElevatorOffset(unsigned char* target)
+	{
+
+	}
+	void AileronOffset(unsigned char* target)
+	{
+
+	}
 } // namespace xcread
