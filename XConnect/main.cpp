@@ -33,8 +33,6 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 
 const char* version = "0.1.1";
 
-#include <windows.h>
-
 HINSTANCE hDLLInstance = 0;
 
 

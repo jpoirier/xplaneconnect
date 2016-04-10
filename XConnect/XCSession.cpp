@@ -76,170 +76,166 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 				pdw = (DWORD*)pView;
 				while ((*pdw) && (result == XC_RETURN_SUCCESS))  {
+/*
                     switch (*pdw) {
                     case XC_ACTION_READ:
-						fprintf(str, "  XC_ACTION_READ\n");
+						// fprintf(str, "  XC_ACTION_READ\n");
 						break;
                     case XC_ACTION_READTRUE:
-						fprintf(str, "  XC_ACTION_READTRUE\n");
+						// fprintf(str, "  XC_ACTION_READTRUE\n");
 						break;
                     case XC_ACTION_WRITE:
-						fprintf(str, "  XC_ACTION_WRITE\n");
+						// fprintf(str, "  XC_ACTION_WRITE\n");
 						break;
                     case XC_ACTION_WRITETRUE:
-						fprintf(str, "  XC_ACTION_WRITETRUE\n");
+						// fprintf(str, "  XC_ACTION_WRITETRUE\n");
 						break;
                     case XC_ACTION_READTOKEN:
-						fprintf(str, "  XC_ACTION_READTOKEN\n");
+						// fprintf(str, "  XC_ACTION_READTOKEN\n");
 						break;
                     case XC_ACTION_WRITETOKEN:
-						fprintf(str, "  XC_ACTION_WRITETOKEN\n");
+						// fprintf(str, "  XC_ACTION_WRITETOKEN\n");
 						break;
                     case XC_ACTION_SEARCH:
-						fprintf(str, "  XC_ACTION_SEARCH\n");
+						// fprintf(str, "  XC_ACTION_SEARCH\n");
 						break;
                     }
+*/
 					switch (*pdw) {
 					case XC_ACTION_READ:
 					case XC_ACTION_READTRUE:
-						{
-							GlobalOperationType = ReadingT;
-							pHdrR = (XC_ACTION_READ_HDR*)pdw;
-							pNext += sizeof(XC_ACTION_READ_HDR);
-							if (pHdrR->size) {
-								GetVariable(pNext, pHdrR->offset, pHdrR->size);
-								//CopyMemory(pNext, (BYTE*)true_offset, pHdrR->size);
-							}
-							pNext += pHdrR->size;
-							pdw = (DWORD*)pNext;
+						GlobalOperationType = ReadingT;
+						pHdrR = (XC_ACTION_READ_HDR*)pdw;
+						pNext += sizeof(XC_ACTION_READ_HDR);
+						if (pHdrR->size) {
+							GetVariable(pNext, pHdrR->offset, pHdrR->size);
+							//CopyMemory(pNext, (BYTE*)true_offset, pHdrR->size);
 						}
+						pNext += pHdrR->size;
+						pdw = (DWORD*)pNext;
 						break;
 					case XC_ACTION_WRITE:
 					case XC_ACTION_WRITETRUE:
-						{
-							GlobalOperationType = WritingT;
-							pHdrW = (XC_ACTION_WRITE_HDR*)pdw;
-							pNext += sizeof(XC_ACTION_WRITE_HDR);
-							if (pHdrW->size) {
-								WriteVariable(pNext, pHdrW->offset, pHdrW->size);
-								/*if (pHdrW->action == XC_ACTION_WRITETRUE) {
-									true_offset = pHdrW->offset;
-									if (!IsBadWritePtr((BYTE*)true_offset, pHdrW->size))
-										CopyMemory((BYTE*)true_offset, pNext, pHdrW->size);
-								}
-								else {
-									writedataptr = pNext;
-									writedatasize = pHdrW->size;
-									true_offset = GetTrueFS9Offset(pHdrW->offset);
-									if (!IsBadWritePtr((BYTE*)true_offset, pHdrW->size))
-										CopyMemory((BYTE*)true_offset, pNext, pHdrW->size);
-									UpdateFSVar(pHdrW->offset);
-								}*/
-							}
-							pNext += pHdrW->size;
-							pdw = (DWORD*)pNext;
-						}
+                        GlobalOperationType = WritingT;
+                        pHdrW = (XC_ACTION_WRITE_HDR*)pdw;
+                        pNext += sizeof(XC_ACTION_WRITE_HDR);
+                        if (pHdrW->size) {
+                            WriteVariable(pNext, pHdrW->offset, pHdrW->size);
+                            /*if (pHdrW->action == XC_ACTION_WRITETRUE) {
+                                true_offset = pHdrW->offset;
+                                if (!IsBadWritePtr((BYTE*)true_offset, pHdrW->size))
+                                    CopyMemory((BYTE*)true_offset, pNext, pHdrW->size);
+                            }
+                            else {
+                                writedataptr = pNext;
+                                writedatasize = pHdrW->size;
+                                true_offset = GetTrueFS9Offset(pHdrW->offset);
+                                if (!IsBadWritePtr((BYTE*)true_offset, pHdrW->size))
+                                    CopyMemory((BYTE*)true_offset, pNext, pHdrW->size);
+                                UpdateFSVar(pHdrW->offset);
+                            }*/
+                        }
+                        pNext += pHdrW->size;
+                        pdw = (DWORD*)pNext;
 						break;
-					/*case XC_ACTION_READTOKEN:
-						{
-							GlobalOperationType = ReadingT;
-							pHdrRT = (XC_ACTION_READTOKEN_HDR*)pdw;
-							if (pHdrRT) {
-								MODULE_VAR mvar = { pHdrRT->token };
-								lookup_var(&mvar);
-								pNext += sizeof(XC_ACTION_READTOKEN_HDR);
-								CopyMemory(pNext, (BYTE*)(&mvar.var_value.n), 8);
-								pNext += 8;
-								pdw = (DWORD*)pNext;
-							}
-						}
+/*
+                    case XC_ACTION_READTOKEN:
+
+                        GlobalOperationType = ReadingT;
+                        pHdrRT = (XC_ACTION_READTOKEN_HDR*)pdw;
+                        if (pHdrRT) {
+                            MODULE_VAR mvar = { pHdrRT->token };
+                            lookup_var(&mvar);
+                            pNext += sizeof(XC_ACTION_READTOKEN_HDR);
+                            CopyMemory(pNext, (BYTE*)(&mvar.var_value.n), 8);
+                            pNext += 8;
+                            pdw = (DWORD*)pNext;
+                        }
 						break;
 					case XC_ACTION_WRITETOKEN:
-						{
-							GlobalOperationType = WritingT;
-							pHdrWT = (XC_ACTION_WRITETOKEN_HDR*)pdw;
-							if (pHdrWT) {
-								MODULE_VAR mvar = { pHdrWT->token };
-								lookup_var(&mvar);
-								pNext += sizeof(XC_ACTION_WRITETOKEN_HDR);
-								CopyMemory((BYTE*)(mvar.var_ptr), pNext, 8);
-								pNext += 8;
-								pdw = (DWORD*)pNext;
-							}
-						}
+                        GlobalOperationType = WritingT;
+                        pHdrWT = (XC_ACTION_WRITETOKEN_HDR*)pdw;
+                        if (pHdrWT) {
+                            MODULE_VAR mvar = { pHdrWT->token };
+                            lookup_var(&mvar);
+                            pNext += sizeof(XC_ACTION_WRITETOKEN_HDR);
+                            CopyMemory((BYTE*)(mvar.var_ptr), pNext, 8);
+                            pNext += 8;
+                            pdw = (DWORD*)pNext;
+                        }
 						break;
 					case XC_ACTION_SEARCH:
-						{
-							FILE* str;
-							char buf[200];
-							DWORD os;
-							BOOL eq;
-							DWORD i;
-							GlobalOperationType = SearchingT;
-							pHdrS = (XC_ACTION_SEARCH_HDR*)pdw;
-							pNext += sizeof(XC_ACTION_SEARCH_HDR);
-							if (pHdrS->size) {
-								if (pHdrS->offset_from < pHdrS->offset_to) {
-									for (os = pHdrS->offset_from; os <= pHdrS->offset_to; os++) {
-										if (!IsBadReadPtr((BYTE*)os, pHdrS->size)) {
-											eq = TRUE;
-											for (i = 0; i < pHdrS->size; i++) {
-												if (((BYTE*)os)[i] != pNext[i]) {
-													eq = FALSE;
-													break;
-												}
-											}
-											if (eq) {
-												str = fopen("modules\\FDSConnection.out.txt", "a+");
-												sprintf(buf, "value found at %d\n", (long)os);
-												fprintf(str, buf);
-												fclose(str);
-											}
-										}
-									}
-								}
-								else {
-									for (os = pHdrS->offset_from; os >= pHdrS->offset_to; os--) {
-										if (!IsBadReadPtr((BYTE*)os, pHdrS->size)) {
-											eq = TRUE;
-											for (i = 0; i < pHdrS->size; i++) {
-												if (((BYTE*)os)[i] != pNext[i]) {
-													eq = FALSE;
-													break;
-												}
-											}
-											if (eq) {
-												str = fopen("modules\\FDSConnection.out.txt", "a+");
-												sprintf(buf, "value found at %d\n", (long)os);
-												fprintf(str, buf);
-												fclose(str);
-											}
-										}
-									}
-								}
-							}
-
-							pNext += pHdrS->size;
-							pdw = (DWORD*)pNext;
-						}*/
+                        FILE* str;
+                        char buf[200];
+                        DWORD os;
+                        BOOL eq;
+                        DWORD i;
+                        GlobalOperationType = SearchingT;
+                        pHdrS = (XC_ACTION_SEARCH_HDR*)pdw;
+                        pNext += sizeof(XC_ACTION_SEARCH_HDR);
+                        if (pHdrS->size) {
+                            if (pHdrS->offset_from < pHdrS->offset_to) {
+                                for (os = pHdrS->offset_from; os <= pHdrS->offset_to; os++) {
+                                    if (!IsBadReadPtr((BYTE*)os, pHdrS->size)) {
+                                        eq = TRUE;
+                                        for (i = 0; i < pHdrS->size; i++) {
+                                            if (((BYTE*)os)[i] != pNext[i]) {
+                                                eq = FALSE;
+                                                break;
+                                            }
+                                        }
+                                        if (eq) {
+                                            str = fopen("modules\\FDSConnection.out.txt", "a+");
+                                            sprintf(buf, "value found at %d\n", (long)os);
+                                            fprintf(str, buf);
+                                            fclose(str);
+                                        }
+                                    }
+                                }
+                            }
+                            else {
+                                for (os = pHdrS->offset_from; os >= pHdrS->offset_to; os--) {
+                                    if (!IsBadReadPtr((BYTE*)os, pHdrS->size)) {
+                                        eq = TRUE;
+                                        for (i = 0; i < pHdrS->size; i++) {
+                                            if (((BYTE*)os)[i] != pNext[i]) {
+                                                eq = FALSE;
+                                                break;
+                                            }
+                                        }
+                                        if (eq) {
+                                            str = fopen("modules\\FDSConnection.out.txt", "a+");
+                                            sprintf(buf, "value found at %d\n", (long)os);
+                                            fprintf(str, buf);
+                                            fclose(str);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        pNext += pHdrS->size;
+                        pdw = (DWORD*)pNext;
+*/
 					default:
-						{
-							*pdw = 0;
-							result = XC_RETURN_FAILURE;
-						}
+						*pdw = 0;
+						result = XC_RETURN_FAILURE;
 						break;
-					}
-				}
+					} /* switch (*pdw)*/
+				} /* while ((*pdw) && (result == XC_RETURN_SUCCESS)) */
+
 				pNext = pView;
 				if (message == XC_CALL)
 					UnmapViewOfFile((LPVOID)pView);
-			}
+			} /* if (pView) */
+
 			if (message == XC_CALL)
 				CloseHandle(hMap);
-		}
+		} /* if (hMap) */
+
 	    fclose(str);
 		return result;
-	}
+	} /* if ((message == XC_CALL) || (message == XCModuleCallMessage)) */
+
 	return (DefWindowProc(hWnd, message, wParam, lParam));
 }
 
@@ -274,11 +270,7 @@ void module_init(HINSTANCE dllInstance)
 			XC_CALL = RegisterWindowMessage(TEXT(XC_CALL_CONNECTION));
 			if (XC_CALL != 0) {
 				fprintf(str, "Register call message OK\n");
-				XConnectMemBlock = new BYTE[0x10000];
-
-				for (int i = 0; i < 0x10000; i++) {
-					XConnectMemBlock[i] = 0;
-				}
+				XConnectMemBlock = new BYTE[0x10000]();
 			}
 		}
 	}
@@ -288,8 +280,7 @@ void module_init(HINSTANCE dllInstance)
 
 void module_deinit(void)
 {
-	FILE* str = fopen("XConnect.out", "a+");
-
+	FILE* str = fopen("XConnect.out.txt", "a+");
 	DestroyWindow(hWnd);
 	fprintf(str, "XConnect deinitialisation\n");
 	fclose(str);
