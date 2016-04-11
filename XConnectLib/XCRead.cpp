@@ -128,11 +128,9 @@ void GetVariableReaders(size_t offset, size_t size, std::vector<std::pair<size_t
 		readers[0x3332] = Eng2ThrottleInput;
 		readers[0x3542] = StandbyQNH;
 		readers[0x3544] = StandbyAltitude;
-		// 0x0898 2 Engine RPM
+		// 0x0898 2 Engine RPM ** r
 		readers[0x0898] = EngRPM;
-		// 0x0840 2 Crashed Flag
-		readers[0x0840] = CrashedFlag;
-		// 0x036C 1 stall Warning
+		// 0x036C 1 stall Warning ** rw
 		readers[0x036C] = StallWarning;
 		// 0x0BF0 4 Nose Gear Position
 		readers[0x0BF0] = NoseGearPos;
@@ -140,33 +138,31 @@ void GetVariableReaders(size_t offset, size_t size, std::vector<std::pair<size_t
 		readers[0x0918] = Eng1Vibration;
 		// 0x09B0 8 Engine 2 Vibration
 		readers[0x09B0] = Eng2Vibration;
-		// 0x11BA 2 G-Force  (g's * 625)
+		// 0x11BA 2 G-Force  (g's * 625) ** r
 		readers[0x11BA] = GForce;
-		// 0x11BE 2 Relative Angle of Attack
+		// 0x11BE 2 Relative Angle of Attack ** rw
 		readers[0x11BE] = RelAOA;
 		// 0x3060 8 Lateral acceleration
 		readers[0x3060] = LatAccel;
 		// 0x3080 8 Roll acceleration
 		readers[0x3080] = RollAccel;
-		// 0x07BC 4 Autopilot Master switch
+		// 0x07BC 4 Autopilot Master switch ** rw
 		readers[0x07BC] = OttoMasterSwitch;
-		// 0x07D0 4 Autopilot Alitude Hold
+		// 0x07D0 4 Autopilot Alitude Hold ** rw
 		readers[0x07D0] = OttoAltHold;
-		// 0x2410 8 Engine 1 Thrust in Pounds
-		readers[0x2410] = Eng1Thrust;
-		// 0x2ED0 8 Alpha - Radians
+		// 0x2ED0 8 Alpha - Radians ** r
 		readers[0x2ED0] = Alpha;
-		// 0x2ED8 9 Beta - Radians
+		// 0x2ED8 9 Beta - Radians ** r
 		readers[0x2ED8] = Beta;
-		// 0x6030 8 Ground Speed - m/s
+		// 0x6030 8 Ground Speed - m/s ** r
 		readers[0x6030] = GroundSpeed;
 		// 0x2EA8 8 Aileron deflection - rads
 		readers[0x2EA8] = AileronDeflection;
-		// 0x0BC0 2 Elevator Trim Control  (for AP following)
+		// 0x0BC0 2 Elevator Trim Control  (for AP following) ** rw
 		readers[0x0BC0] = ElevatorTrimCtrl;
 		// 0x05DC 2 Slew mode indicator
 		readers[0x05DC] = SlewModeInd;
-		// 0x0588 8 Sim local time in seconds
+		// 0x0588 8 Sim local time in seconds ** r
 		readers[0x0588] = SimLocalTimeSecs;
 		// 0x66F8 8 Jet/Propwash - Engine 1 in m/s
 		readers[0x66F8] = Eng1JetPropwash;

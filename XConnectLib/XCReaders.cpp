@@ -1030,161 +1030,210 @@ namespace xcread
 		int32_t alt = (int32_t)GetFloat("sim/flightmodel/misc/h_ind_copilot2");
 		XCCopyMemory(target, &alt);
 	}
+//--------------------------------------------------
+// from XPUIPCOffsets.cfg
+	// **1 FLOAT64 r 0x66E8 8 Stall Warning AoA - Degrees
+	void StallWarningAOA(unsigned char* target)
+	{
+	// Dataref BFF_AOA_Warn	sim/aircraft/overflow/acf_stall_warn_alpha	float
+	// Offset	0x66E8	FLOAT64	1	r	$BFF_AOA_Warn
+	}
+
+	// **1 FLOAT64 r 0x66F8 8 Jet/Propwash - Engine 1 in m/s
+	void Eng1JetPropwash(unsigned char* target)
+	{
+	// Dataref	BFF_PWash	sim/flightmodel/jetwash/DVinc[0]	floatarray
+	// Offset	0x66F8  FLOAT64	1	r	$BFF_PWash
+	}
+
+	// **1 FLOAT64 r 0x66E0 8 CG Position displacement from default, meters
+	void CGPosDispFromDflt(unsigned char* target)
+	{
+	// Dataref	BFF_CG_Pos_Disp	sim/flightmodel/misc/cgz_ref_to_default	float
+	// Offset	0x66E0  FLOAT64	1	r	$BFF_CG_Pos_Disp
+	}
+
+	// **1 FLOAT64 r 0x0588 8 Sim local time in seconds
+	void SimLocalTimeSecs(unsigned char* target)
+	{
+	// Dataref BFF_FSlocal_sec	sim/time/local_time_sec	float
+	// Offset	0x0588	FLOAT64	1	r	$BFF_FSlocal_sec
+	}
+
+	// **1 SINT16 r Ail_FS_offset := 0x66DC 2
+	void AileronOffsetHeli(unsigned char* target)
+	{
+	// Dataref	BFF_ACyclic	sim/flightmodel/cyclic/cyclic_ailn_command[0] floatarray
+	// Offset	0x66DC SINT16 1 r	$BFF_ACyclic 1638.3 *
+	}
+
+	// **1 SINT16 r Elev_FS_offset := 0x66DA 2
+	void ElevatorOffsetHeli(unsigned char* target)
+	{
+	// Dataref	BFF_RCyclic	sim/flightmodel/cyclic/cyclic_elev_command[0] floatarray
+	// Offset	0x66DA SINT16 1 r	$BFF_RCyclic 1365.25 *
+	}
+
+
+
+
+
+	// **1 SINT16 rw 0x0C04 2 Rudder Trim Control  (for AP following)
+	void RudderTrimCtrl(unsigned char* target)
+	{
+	// Dataref	BFF_RTrim	sim/flightmodel/controls/rud_trim	float
+	// Offset	0x0C04 SINT16 1 rw	$BFF_RTrim 16383 * >BFF_RTrim @ 16383 /
+	}
+
+	// **1 SINT16 rw 0x0C02 2 Aileron Trim Control  (for AP following)
+	void AileronTrimCtrl(unsigned char* target)
+	{
+	// Dataref	BFF_ATrim	sim/flightmodel/controls/ail_trim	float
+	// Offset	0x0C02 SINT16 1 rw	$BFF_ATrim 16383 * >BFF_ATrim @ 16383 /
+	}
+
+	// Dataref	BFF_GPS_Long	sim/flightmodel/position/longitude	double
+	// Offset	0x6018 FLOAT64 1 rw	$BFF_GPS_Long
+
+
+	// Dataref	BFF_GPS_Lat	sim/flightmodel/position/latitude	double
+	// Offset	0x6010 FLOAT64 1 rw	$BFF_GPS_Lat
+
+
+	// Dataref	BFF_DME_Dist	sim/cockpit/radios/nav1_dme_dist_m	float
+	// Offset	0x0300 UINT16 1 rw	$BFF_DME_Dist 10 *
+
+	// Dataref	BFF_GS_Hold	sim/cockpit2/autopilot/glideslope_status	int
+	// Offset	0x07FC UINT32 1 rw	$BFF_GS_Hold
+
+//-----------------------------------------------
+// from Used_offsets.txt
 
 	// 0x0898 2 Engine RPM
 	void EngRPM(unsigned char* target)
 	{
-		// sim/cockpit2/engine/indicators/engine_speed_rpm	float[8]	n	revolutions/minute	Engine speed, radians per second
+	// sim/cockpit2/engine/indicators/engine_speed_rpm	float[8]	n	revolutions/minute	Engine speed, radians per second
 	}
-	// 0x0840 2 Crashed Flag
-	void CrashedFlag(unsigned char* target)
-	{
 
-	}
 	// 0x036C 1 stall Warning
 	void StallWarning(unsigned char* target)
 	{
-		// sim/flightmodel/failures/stallwarning	int	y	???	Stall Warning
+	// sim/flightmodel/failures/stallwarning	int	y	???	Stall Warning
 	}
+
 	// 0x0BF0 4 Nose Gear Position
 	void NoseGearPos(unsigned char* target)
 	{
-
+	// sim/flightmodel2/gear/deploy_ratio	float[10]	n	ratio	This is how far down the landing gear is.  0=up, 1= down
+	// sim/cockpit2/controls/gear_handle_down	int	y	boolean	Gear handle position. 0 is up. 1 is down.
 	}
+
 	// 0x0918 8 Engine 1 Vibration
 	void Eng1Vibration(unsigned char* target)
 	{
 
 	}
+
 	// 0x09B0 8 Engine 2 Vibration
 	void Eng2Vibration(unsigned char* target)
 	{
 
 	}
+
 	// 0x11BA 2 G-Force  (g's * 625)
 	void GForce(unsigned char* target)
 	{
-		// sim/flightmodel2/misc/gforce_normal	float	n	todo	desc
+	// sim/flightmodel2/misc/gforce_normal	float	n	todo	desc
 	}
+
 	// 0x11BE 2 Relative Angle of Attack
 	void RelAOA(unsigned char* target)
 	{
-		// sim/operation/failures/rel_AOA	int	y	failure_enum	AOA
+	// sim/flightmodel2/misc/AoA_angle_degrees	float	n	degrees	Angle of attack probe.  Positive means aircracft
+	// nose is above the flight path in aircraft coordinates.
 	}
+
 	// 0x3060 8 Lateral acceleration
 	void LatAccel(unsigned char* target)
 	{
 
 	}
+
 	// 0x3080 8 Roll acceleration
 	void RollAccel(unsigned char* target)
 	{
 
 	}
+
 	// 0x07BC 4 Autopilot Master switch
 	void OttoMasterSwitch(unsigned char* target)
 	{
-		// sim/cockpit/autopilot/autopilot_mode	int	y	enum	The autopilot master mode (off=0, flight director=1, on=2)
+	// sim/cockpit/autopilot/autopilot_mode	int	y	enum	The autopilot master mode (off=0, flight director=1, on=2)
 	}
+
 	// 0x07D0 4 Autopilot Alitude Hold
 	void OttoAltHold(unsigned char* target)
 	{
-		// sim/cockpit/autopilot/altitude	float	y	ftmsl	Altitude dialed into the AP
+	// sim/cockpit/autopilot/altitude	float	y	ftmsl	Altitude dialed into the AP
 	}
-	// 0x2410 8 Engine 1 Thrust in Pounds
-	void Eng1Thrust(unsigned char* target)
-	{
 
-	}
 	// 0x2ED0 8 Alpha - Radians
 	void Alpha(unsigned char* target)
 	{
-		// sim/flightmodel/position/alpha	float	n	degrees	The pitch relative to the flown path (angle of attack)
+	// sim/flightmodel/position/alpha	float	n	degrees	The pitch relative to the flown path (angle of attack)
 	}
+
 	// 0x2ED8 9 Beta - Radians
 	void Beta(unsigned char* target)
 	{
-		// sim/flightmodel/position/beta	float	n	degrees	The heading relative to the flown path (yaw)
+	// sim/flightmodel/position/beta	float	n	degrees	The heading relative to the flown path (yaw)
 	}
+
 	// 0x6030 8 Ground Speed - m/s
 	void GroundSpeed(unsigned char* target)
 	{
-		// sim/flightmodel/position/groundspeed	float	n	meters/sec	The ground speed of the aircraft
+	// sim/flightmodel/position/groundspeed	float	n	meters/sec	The ground speed of the aircraft
 	}
+
 	// 0x2EA8 8 Aileron deflection - rads
 	void AileronDeflection(unsigned char* target)
 	{
 
 	}
+
 	// 0x0BC0 2 Elevator Trim Control  (for AP following)
 	void ElevatorTrimCtrl(unsigned char* target)
 	{
-		// sim/flightmodel2/controls/aileron_trim	float	y	ratio	Aileron trim, in part of MAX FLIGHT CONTROL
-		// DEFLECTION. So, if the aileron trim is deflected enough to move the ailerons through 30% of their travel,
-		// then that is an aileron trim of 0.3.
+	// sim/flightmodel2/controls/aileron_trim	float	y	ratio	Aileron trim, in part of MAX FLIGHT CONTROL
+	// DEFLECTION. So, if the aileron trim is deflected enough to move the ailerons through 30% of their travel,
+	// then that is an aileron trim of 0.3.
 	}
+
 	// 0x05DC 2 Slew mode indicator
 	void SlewModeInd(unsigned char* target)
 	{
 
 	}
-	// 0x0588 8 Sim local time in seconds
-	void SimLocalTimeSecs(unsigned char* target)
-	{
-		// sim/time/local_time_sec	float	n	seconds	Local time
-	}
-	// 0x66F8 8 Jet/Propwash - Engine 1 in m/s
-	void Eng1JetPropwash(unsigned char* target)
-	{
 
-	}
-	// 0x66E8 8 Stall Warning AoA - Degrees
-	void StallWarningAOA(unsigned char* target)
-	{
-		// sim/flightmodel2/misc/AoA_angle_degrees	float	n	degrees	Angle of attack probe.  Positive means aircracft
-		// nose is above the flight path in aircraft coordinates.
-	}
 	// 0x30A8 8 Pitch Rate Rad/s (+ve nose up in X-Plane)
 	void PitchRate(unsigned char* target)
 	{
 
 	}
-	// 0x66E0 8 CG Position displacement from default, meters
-	void CGPosDispFromDflt(unsigned char* target)
-	{
 
-	}
-	// 0x0C02 2 Aileron Trim Control  (for AP following)
-	void AileronTrimCtrl(unsigned char* target)
-	{
-
-	}
-	// 0x0C04 2 Rudder Trim Control  (for AP following)
-	void RudderTrimCtrl(unsigned char* target)
-	{
-
-	}
 	// 0x0BBA 2 Elevator Control Input  (for AP following)
 	void ElevatorCtrlInput(unsigned char* target)
 	{
 
 	}
-	// Elevator position  (for AP following)
 
-	// Elev_FS_offset := 0x66DA 2 Ail_FS_offset := 0x66DC 2
-	void ElevatorOffsetHeli(unsigned char* target)
-	{
-
-	}
-	void AileronOffsetHeli(unsigned char* target)
-	{
-
-	}
-	// Elev_FS_offset := 0x0BB2 2 Ail_FS_offset := 0x0BB6 2
+	// Elev_FS_offset := 0x0BB2 2
 	void ElevatorOffset(unsigned char* target)
 	{
 
 	}
+
+	// Ail_FS_offset := 0x0BB6 2
 	void AileronOffset(unsigned char* target)
 	{
 

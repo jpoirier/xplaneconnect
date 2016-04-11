@@ -141,6 +141,14 @@ void WriteVariable(BYTE* source, DWORD offset, DWORD size)
 			SetInt("sim/operation/override/override_joystick_roll", 1);
 		} else
 			SetInt("sim/operation/override/override_joystick_roll", 0);
+// sim/flightmodel/failures/stallwarning	int	y	???	Stall Warning
+// sim/operation/failures/rel_AOA	int	y	failure_enum	AOA
+// sim/cockpit/autopilot/autopilot_mode	int	y	enum	The autopilot master mode (off=0, flight director=1, on=2)
+// sim/cockpit/autopilot/altitude	float	y	ftmsl	Altitude dialed into the AP
+// sim/flightmodel2/controls/aileron_trim	float	y	ratio	Aileron trim, in part of MAX FLIGHT CONTROL
+		// DEFLECTION. So, if the aileron trim is deflected enough to move the ailerons through 30% of their travel,
+		// then that is an aileron trim of 0.3.
+
 	} else {
 		fprintf(str, "Unknown offset: %x\n", offset);
 		BYTE* memory = XConnectMemBlock;
