@@ -20,25 +20,64 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "XCWrite.h"
 
 
-void SetFloat(const char* dataRef, float value)
+static void SetByte(const char* strRef, int8_t value, int index);
+static void SetFloat(const char* strRef, float value);
+static void SetFloat(const char* strRef, float value, int index);
+static void SetInt(const char* strRef, int value);
+static void SetInt(const char* strRef, int value, int index);
+static void SetDouble(const char* strRef, double value);
+static void SetDouble(const char* strRef, double value, int index);
+
+
+
+void SetByte(const char* strRef, int8_t value, int index)
 {
-	XPLMDataRef intvar;
-	intvar = XPLMFindDataRef(dataRef);
-	XPLMSetDataf(intvar, value);
+	XPLMDataRef dataRef;
+	dataRef = XPLMFindDataRef(strRef);
+	XPLMSetDatavb(dataRef, (void*)&value, index, 1);
 }
 
-void SetFloat(const char* dataRef, float value, int index)
+
+void SetFloat(const char* strRef, float value)
 {
-	XPLMDataRef intvar;
-	intvar = XPLMFindDataRef(dataRef);
-	XPLMSetDatavf(intvar, &value, index, 1);
+	XPLMDataRef dataRef;
+	dataRef = XPLMFindDataRef(strRef);
+	XPLMSetDataf(dataRef, value);
 }
 
-void SetInt(const char* dataRef, int value)
+void SetFloat(const char* strRef, float value, int index)
 {
-	XPLMDataRef intvar;
-	intvar = XPLMFindDataRef(dataRef);
-	XPLMSetDatai(intvar, value);
+	XPLMDataRef dataRef;
+	dataRef = XPLMFindDataRef(strRef);
+	XPLMSetDatavf(dataRef, &value, index, 1);
+}
+
+void SetInt(const char* strRef, int value)
+{
+	XPLMDataRef dataRef;
+	dataRef = XPLMFindDataRef(strRef);
+	XPLMSetDatai(dataRef, value);
+}
+
+void SetInt(const char* strRef, int value, int index)
+{
+	XPLMDataRef dataRef;
+	dataRef = XPLMFindDataRef(strRef);
+	XPLMSetDatavi(dataRef, &value, index, 1);
+}
+
+void SetDouble(const char* strRef, double value)
+{
+	XPLMDataRef dataRef;
+	dataRef = XPLMFindDataRef(strRef);
+	XPLMSetDatad(dataRef, value)
+}
+
+void SetDouble(const char* strRef, double value, int index)
+{
+	XPLMDataRef dataRef;
+	dataRef = XPLMFindDataRef(strRef);
+	XPLMSetDatavd(dataRef, &value, index , 1)
 }
 
 void WriteVariable(BYTE* source, DWORD offset, DWORD size)
@@ -53,18 +92,18 @@ void WriteVariable(BYTE* source, DWORD offset, DWORD size)
 	} else if (offset == 0x088C) {
 		int16_t val;
 		CopyMemory(&val, source, size);
-		float fVal = val;
+		float fVal = (float)val;
 		fVal /= 16384.0;
 		SetInt("sim/operation/override/override_throttles", 1);
-		SetFloat("sim/flightmodel/engine/ENGN_thro_use", (float)fVal, 0);
+		SetFloat("sim/flightmodel/engine/ENGN_thro_use", fVal, 0);
 		SetInt("sim/operation/override/override_throttles", 0);
 	} else if (offset == 0x0924) {
 		int16_t val;
 		CopyMemory(&val, source, size);
-		float fVal = val;
+		float fVal = (float)val;
 		fVal /= 16384.0;
 		SetInt("sim/operation/override/override_throttles", 1);
-		SetFloat("sim/flightmodel/engine/ENGN_thro_use", (float)fVal, 1);
+		SetFloat("sim/flightmodel/engine/ENGN_thro_use", fVal, 1);
 		SetInt("sim/operation/override/override_throttles", 0);
 	} else if (offset == 0x0BB2) {
 		if (PitchDisconnect) {
@@ -146,15 +185,60 @@ void WriteVariable(BYTE* source, DWORD offset, DWORD size)
 // sim/cockpit/autopilot/autopilot_mode	int	y	enum	The autopilot master mode (off=0, flight director=1, on=2)
 // sim/cockpit/autopilot/altitude	float	y	ftmsl	Altitude dialed into the AP
 // sim/flightmodel2/controls/aileron_trim	float	y	ratio	Aileron trim, in part of MAX FLIGHT CONTROL
-		// DEFLECTION. So, if the aileron trim is deflected enough to move the ailerons through 30% of their travel,
-		// then that is an aileron trim of 0.3.
-
-	} else {
-		fprintf(str, "Unknown offset: %x\n", offset);
-		BYTE* memory = XConnectMemBlock;
-		memory += offset;
-		CopyMemory(memory, source, size);
-	}
+// DEFLECTION. So, if the aileron trim is deflected enough to move the ailerons through 30% of their travel,
+// then that is an aileron trim of 0.3.
+		} else if (offset == 0x0300) {
+			// # Created offset - 0x0300 VOR1 DME distance, 16-bit integer, nm * 10
+			// # sim/cockpit/radios/nav1_dme_dist_m	float	y	nautical_miles	Our distance in nautical miles from the beacon tuned in on nav1.  override_navneedles
+			// Dataref	BFF_DME_Dist	sim/cockpit/radios/nav1_dme_dist_m	float
+			// Offset	0x0300 UINT16 1 rw	$BFF_DME_Dist 10 *
+			uint16_t val;
+			CopyMemory(&val, source, size);
+			SetFloat("sim/cockpit/radios/nav1_dme_dist_m", (float)val);
+		} else if (offset == 0x07FC) {
+			// # Created offset - 0x07FC Gildeslope Status, 16-bit integer
+			// # sim/cockpit2/autopilot/glideslope_status	int	n	enum	Autopilot glideslope status. 0=off,1=armed,2=captured
+			// Dataref	BFF_GS_Hold	sim/cockpit2/autopilot/glideslope_status	int
+			// Offset	0x07FC UINT32 1 rw	$BFF_GS_Hold
+			uint32_t val;
+			CopyMemory(&val, source, size);
+			SetInt("sim/cockpit2/autopilot/glideslope_status", (int)val);
+		} else if (offset == 0x0610) {
+			// # Created offset - 0x0610 GPS: aircraft latitude, floating point double, in degrees (+ve = N, ve = S).
+			// # sim/flightmodel/position/latitude	double	n	degrees	The latitude of the aircraft
+			// Dataref	BFF_GPS_Lat	sim/flightmodel/position/latitude	double
+			// Offset	0x6010 FLOAT64 1 rw	$BFF_GPS_Lat
+			int64_t val;
+			CopyMemory(&val, source, size);
+			SetDouble("sim/flightmodel/position/latitude", (double)val);
+		} else if (offset == 0x0618) {
+			// # Created offset - 0x0618 GPS: aircraft longitude, floating point double, in degrees (+ve = E, ve = W).
+			// # sim/flightmodel/position/longitude	double	n	degrees	The longitude of the aircraft
+			// Dataref	BFF_GPS_Long	sim/flightmodel/position/longitude	double
+			// Offset	0x6018 FLOAT64 1 rw	$BFF_GPS_Long
+			int64_t val;
+			CopyMemory(&val, source, size);
+			SetDouble("sim/flightmodel/position/longitude", (double)val);
+		} else if (offset == 0x0C02) {
+			// # Custom offset - 0x0C02 Set Aileron Trim - data ref range +/1.0 scaled to +/- 16383
+			// Dataref	BFF_ATrim	sim/flightmodel/controls/ail_trim	float
+			// Offset	0x0C02 SINT16 1 rw	$BFF_ATrim 16383 * >BFF_ATrim @ 16383 /
+			int16_t val;
+			CopyMemory(&val, source, size);
+			SetFloat("sim/flightmodel/controls/ail_trim", (float)val);
+		} else if (offset == 0x0C04) {
+			// # Custom offset - 0x0C04 Set Rudder Trim - data ref range +/1.0 scaled to +/- 16383
+			// Dataref	BFF_RTrim	sim/flightmodel/controls/rud_trim	float
+			// Offset	0x0C04 SINT16 1 rw	$BFF_RTrim 16383 * >BFF_RTrim @ 16383 /
+			int16_t val;
+			CopyMemory(&val, source, size);
+			SetFloat("sim/flightmodel/controls/rud_trim", (float)val);
+		} else {
+			fprintf(str, "Unknown offset: %x\n", offset);
+			BYTE* memory = XConnectMemBlock;
+			memory += offset;
+			CopyMemory(memory, source, size);
+		}
 
 	fclose(str);
 }

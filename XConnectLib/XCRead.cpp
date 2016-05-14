@@ -128,6 +128,7 @@ void GetVariableReaders(size_t offset, size_t size, std::vector<std::pair<size_t
 		readers[0x3332] = Eng2ThrottleInput;
 		readers[0x3542] = StandbyQNH;
 		readers[0x3544] = StandbyAltitude;
+        //
 		// 0x0898 2 Engine RPM ** r
 		readers[0x0898] = EngRPM;
 		// 0x036C 1 stall Warning ** rw
@@ -163,19 +164,19 @@ void GetVariableReaders(size_t offset, size_t size, std::vector<std::pair<size_t
 		// 0x05DC 2 Slew mode indicator
 		readers[0x05DC] = SlewModeInd;
 		// 0x0588 8 Sim local time in seconds ** r
-		readers[0x0588] = SimLocalTimeSecs;
+		readers[0x0588] = SimLocalTimeSecs;  // **
 		// 0x66F8 8 Jet/Propwash - Engine 1 in m/s
-		readers[0x66F8] = Eng1JetPropwash;
+		readers[0x66F8] = Eng1JetPropwash; // **
 		// 0x66E8 8 Stall Warning AoA - Degrees
-		readers[0x66E8] = StallWarningAOA;
+		readers[0x66E8] = StallWarningAOA; // **
 		// 0x30A8 8 Pitch Rate Rad/s (+ve nose up in X-Plane)
 		readers[0x30A8] = PitchRate;
 		// 0x66E0 8 CG Position displacement from default, meters
-		readers[0x66E0] = CGPosDispFromDflt;
+		readers[0x66E0] = CGPosDispFromDflt; // **
 		// 0x0C02 2 Aileron Trim Control  (for AP following)
-		readers[0x0C02] = AileronTrimCtrl;
+		readers[0x0C02] = AileronTrimCtrl; // **
 		// 0x0C04 2 Rudder Trim Control  (for AP following)
-		readers[0x0C04] = RudderTrimCtrl;
+		readers[0x0C04] = RudderTrimCtrl; // **
 		// 0x0BBA 2 Elevator Control Input  (for AP following)
 		readers[0x0BBA] = ElevatorCtrlInput;
 		// Elevator position  (for AP following)

@@ -85,7 +85,7 @@ namespace xcread
 	void Eng1OilTemp(unsigned char* target);
 	void Eng1OilQty(unsigned char* target);
 	void Eng1HydraulicQty(unsigned char* target);
-	void Eng1FuelFlow(unsigned char* target);
+	// void Eng1FuelFlow(unsigned char* target);
 	void Eng2Throttle(unsigned char* target);
 	void Flaps1(unsigned char* target);
 	void Flaps2(unsigned char* target);
@@ -98,7 +98,7 @@ namespace xcread
 	void Eng2OilTemp(unsigned char* target);
 	void Eng2OilQty(unsigned char* target);
 	void Eng2HydraulicQty(unsigned char* target);
-	void Eng2FuelFlow(unsigned char* target);
+	// void Eng2FuelFlow(unsigned char* target);
 	void NAV1Info(unsigned char* target);
 	void NAV2Info(unsigned char* target);
 	void ADF1Info(unsigned char* target);
@@ -112,8 +112,8 @@ namespace xcread
 	void Eng2ThrottleInput(unsigned char* target);
 	void StandbyQNH(unsigned char* target);
 	void StandbyAltitude(unsigned char* target);
+	//
 	void EngRPM(unsigned char* target);
-	void CrashedFlag(unsigned char* target);
 	void StallWarning(unsigned char* target);
 	void NoseGearPos(unsigned char* target);
 	void Eng1Vibration(unsigned char* target);
@@ -124,7 +124,6 @@ namespace xcread
 	void RollAccel(unsigned char* target);
 	void OttoMasterSwitch(unsigned char* target);
 	void OttoAltHold(unsigned char* target);
-	void Eng1Thrust(unsigned char* target);
 	void Alpha(unsigned char* target);
 	void Beta(unsigned char* target);
 	void GroundSpeed(unsigned char* target);
